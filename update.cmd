@@ -1,50 +1,39 @@
 @echo off
 setlocal enabledelayedexpansion
 
-echo ========================================
+echo ==========================================
 echo GitHub Update Script for C++/CMake Project
-echo ========================================
+echo ==========================================
 
-rem Настройте эти переменные под ваш проект
-set "REPO_PATH=C:\Users\Lenovo\Desktop\CodeShit\operacionki"  rem Путь к репозиторию (текущая директория)
-set "BRANCH=main"  rem Ветка по умолчанию
+set "REPO_PATH=C:\Users\Lenovo\Desktop\CodeShit\operacionki"
+set "BRANCH=main"
 set "COMMIT_MESSAGE=Update project files"
 
-rem Проверка наличия Git
-where git >nul 2>nul
-if errorlevel 1 (
-    echo ERROR: Git не установлен или не добавлен в PATH
-    pause
-    exit /b 1
-)
-
-rem Переход в директорию репозитория
 cd /d "%REPO_PATH%"
 
 echo.
-echo 1. Проверка статуса репозитория...
+echo 1. Status checking...
 git status
 
 echo.
-echo 2. Добавление всех изменений...
+echo 2. Acceptance of changes...
 git add .
 
 echo.
-echo 3. Коммит изменений...
+echo 3. Commiting...
 git commit -m "%COMMIT_MESSAGE%"
 
 echo.
-echo 4. Получение последних изменений с сервера...
+echo 4. Pull origin...
 git pull origin %BRANCH%
 
 echo.
-echo 5. Отправка изменений на сервер...
+echo 5. Push origin...
 git push origin %BRANCH%
 
 echo.
 echo ========================================
-echo Обновление завершено успешно!
+echo Fin.
 echo ========================================
 
-rem Пауза для просмотра результатов
 pause
