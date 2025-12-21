@@ -8,6 +8,8 @@ REPO_PATH="/Desktop/operacionki"
 BRANCH="main"
 COMMIT_MESSAGE="Update project files"
 
+echo "$(git config --global user.name)"
+
 cd "$REPO_PATH"
 
 echo ""
