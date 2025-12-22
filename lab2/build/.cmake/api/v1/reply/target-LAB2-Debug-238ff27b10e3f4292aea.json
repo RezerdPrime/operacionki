@@ -2,7 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "LAB1"
+			"path" : "LAB2.exe"
+		},
+		{
+			"path" : "LAB2.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -35,20 +38,25 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g  "
-				},
-				{
-					"fragment" : "-std=gnu++11"
+					"fragment" : "-g -std=gnu++11"
 				}
 			],
 			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
 			"sourceIndexes" : 
 			[
 				0
 			]
 		}
 	],
-	"id" : "LAB1::@6890427a1f51a3e7e1df",
+	"id" : "LAB2::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -58,14 +66,14 @@
 				"role" : "flags"
 			},
 			{
-				"fragment" : "",
-				"role" : "flags"
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "LAB1",
-	"nameOnDisk" : "LAB1",
+	"name" : "LAB2",
+	"nameOnDisk" : "LAB2.exe",
 	"paths" : 
 	{
 		"build" : ".",

@@ -6,6 +6,7 @@
 			[
 				{
 					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -26,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "lab1",
+					"name" : "lab2",
 					"targetIndexes" : 
 					[
 						0
@@ -37,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "LAB1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-LAB1-Debug-82938519e2c36bdddf71.json",
-					"name" : "LAB1",
+					"id" : "LAB2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-LAB2-Debug-238ff27b10e3f4292aea.json",
+					"name" : "LAB2",
 					"projectIndex" : 0
 				}
 			]
@@ -48,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/rez/Desktop/operacionki/build",
-		"source" : "/home/rez/Desktop/operacionki/lab1"
+		"build" : "C:/Users/Lenovo/Desktop/CodeShit/operacionki/lab2/build",
+		"source" : "C:/Users/Lenovo/Desktop/CodeShit/operacionki/lab2"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 0
+		"minor" : 8
 	}
 }
