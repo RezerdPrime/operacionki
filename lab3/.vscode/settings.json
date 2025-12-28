@@ -1,0 +1,10 @@
+{
+    "cmake.sourceDirectory": "C:/Users/Lenovo/Desktop/CodeShit/operacionki/lab3",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.default.compilerPath": "C:/msys64/mingw64/bin/g++.exe",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.generator": "Ninja",
+    "cmake.environment": {
+        "PATH": "C:\\msys64\\mingw64\\bin;${env:PATH}"
+    }
+}

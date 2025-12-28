@@ -1,0 +1,809 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include <atomic>
+#include <chrono>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <memory>
+#include <cstring>
+
+#if defined(_WIN32)
+    #include <windows.h>
+    #include <process.h>
+    #define getpid _getpid
+    #define pid_t int
+    #define SIGTERM 15
+#else
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    #include <signal.h>
+    #include <errno.h>
+#endif
+
+// Включаем ваши библиотеки
+#include "cplib_shmem.hpp"
+#include "cplib_mutex.hpp"
+
+// Структура для разделяемой памяти
+struct SharedData {
+    int counter;
+    bool is_master;
+    pid_t master_pid;
+    time_t last_fork_time;
+    pid_t child1_pid;
+    pid_t child2_pid;
+    bool child1_running;
+    bool child2_running;
+};
+
+// Глобальные переменные
+cplib::SharedMem<SharedData>* g_shared_mem = nullptr;
+std::ofstream g_log_file;
+std::string g_log_filename = "counter_app.log";
+std::atomic<bool> g_running(true);
+std::atomic<bool> g_is_master(false);
+std::atomic<bool> g_is_child(false);
+std::atomic<int> g_child_type(0); // 0 = основной, 1 = child1, 2 = child2
+cplib::Mutex g_log_mutex;
+
+// Классы потоков для различных задач
+class TimerThread : public cplib::Thread {
+private:
+    cplib::SharedMem<SharedData>* m_shared_mem;
+    bool m_is_master;
+    
+protected:
+    virtual void Main() override {
+        while (true) {
+            // Используем Sleep из cplib::Thread
+            cplib::Thread::Sleep(0.3); // 300 ms
+            
+            CancelPoint(); // Точка прерывания
+            
+            if (!g_running) break;
+            
+            if (m_shared_mem && m_shared_mem->IsValid()) {
+                m_shared_mem->Lock();
+                SharedData* data = m_shared_mem->Data();
+                if (data) {
+                    data->counter++;
+                }
+                m_shared_mem->Unlock();
+            }
+        }
+    }
+    
+    virtual int MainStart() override { return 0; }
+    virtual void MainQuit() override {}
+    
+public:
+    TimerThread(cplib::SharedMem<SharedData>* shared_mem, bool is_master) 
+        : m_shared_mem(shared_mem), m_is_master(is_master) {}
+};
+
+class LogThread : public cplib::Thread {
+private:
+    cplib::SharedMem<SharedData>* m_shared_mem;
+    std::ofstream* m_log_file;
+    cplib::Mutex* m_log_mutex;
+    
+    std::string get_current_time_string(bool with_ms = false) {
+        auto now = std::chrono::system_clock::now();
+        auto now_time_t = std::chrono::system_clock::to_time_t(now);
+        auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            now.time_since_epoch()) % 1000;
+        
+        std::tm tm_buf;
+#if defined(_WIN32)
+        localtime_s(&tm_buf, &now_time_t);
+#else
+        localtime_r(&now_time_t, &tm_buf);
+#endif
+        
+        std::ostringstream oss;
+        oss << std::put_time(&tm_buf, "%Y-%m-%d %H:%M:%S");
+        if (with_ms) {
+            oss << '.' << std::setfill('0') << std::setw(3) << now_ms.count();
+        }
+        return oss.str();
+    }
+    
+protected:
+    virtual void Main() override {
+        while (true) {
+            cplib::Thread::Sleep(1.0); // 1 секунда
+            
+            CancelPoint(); // Точка прерывания
+            
+            if (!g_running) break;
+            
+            if (m_shared_mem && m_shared_mem->IsValid()) {
+                m_shared_mem->Lock();
+                SharedData* data = m_shared_mem->Data();
+                if (data) {
+                    cplib::AutoMutex lock(*m_log_mutex);
+                    if (m_log_file->is_open()) {
+                        *m_log_file << get_current_time_string(true) << " [PID: " << getpid() 
+                                   << " Master] Counter = " << data->counter << std::endl;
+                        m_log_file->flush();
+                    }
+                    std::cout << get_current_time_string(true) << " [PID: " << getpid() 
+                             << " Master] Counter = " << data->counter << std::endl;
+                }
+                m_shared_mem->Unlock();
+            }
+        }
+    }
+    
+    virtual int MainStart() override { return 0; }
+    virtual void MainQuit() override {}
+    
+public:
+    LogThread(cplib::SharedMem<SharedData>* shared_mem, std::ofstream* log_file, cplib::Mutex* log_mutex) 
+        : m_shared_mem(shared_mem), m_log_file(log_file), m_log_mutex(log_mutex) {}
+};
+
+class ForkThread : public cplib::Thread {
+private:
+    cplib::SharedMem<SharedData>* m_shared_mem;
+    std::ofstream* m_log_file;
+    cplib::Mutex* m_log_mutex;
+    
+    std::string get_current_time_string(bool with_ms = false) {
+        auto now = std::chrono::system_clock::now();
+        auto now_time_t = std::chrono::system_clock::to_time_t(now);
+        auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            now.time_since_epoch()) % 1000;
+        
+        std::tm tm_buf;
+#if defined(_WIN32)
+        localtime_s(&tm_buf, &now_time_t);
+#else
+        localtime_r(&now_time_t, &tm_buf);
+#endif
+        
+        std::ostringstream oss;
+        oss << std::put_time(&tm_buf, "%Y-%m-%d %H:%M:%S");
+        if (with_ms) {
+            oss << '.' << std::setfill('0') << std::setw(3) << now_ms.count();
+        }
+        return oss.str();
+    }
+    
+    void log_message(const std::string& message) {
+        cplib::AutoMutex lock(*m_log_mutex);
+        if (m_log_file->is_open()) {
+            *m_log_file << get_current_time_string(true) << " [PID: " << getpid() 
+                       << " Master] " << message << std::endl;
+            m_log_file->flush();
+        }
+        std::cout << get_current_time_string(true) << " [PID: " << getpid() 
+                 << " Master] " << message << std::endl;
+    }
+    
+    // Функция для дочернего процесса 1
+    void run_child1() {
+        {
+            cplib::AutoMutex lock(*m_log_mutex);
+            if (m_log_file->is_open()) {
+                *m_log_file << get_current_time_string(true) << " [PID: " << getpid() 
+                           << " Child1] started" << std::endl;
+                m_log_file->flush();
+            }
+            std::cout << get_current_time_string(true) << " [PID: " << getpid() 
+                     << " Child1] started" << std::endl;
+        }
+        
+        // Открываем разделяемую память
+        cplib::SharedMem<SharedData> local_shared_mem("counter_app_shared");
+        if (!local_shared_mem.IsValid()) {
+            log_message("Child1: Failed to open shared memory");
+            return;
+        }
+        
+        // Увеличиваем счетчик на 10
+        local_shared_mem.Lock();
+        SharedData* data = local_shared_mem.Data();
+        if (data) {
+            data->counter += 10;
+            log_message("Child1: Added 10 to counter. New value: " + std::to_string(data->counter));
+        }
+        local_shared_mem.Unlock();
+        
+        // В Windows: сбрасываем флаг запуска
+#if defined(_WIN32)
+        if (m_shared_mem && m_shared_mem->IsValid()) {
+            m_shared_mem->Lock();
+            SharedData* master_data = m_shared_mem->Data();
+            if (master_data) {
+                master_data->child1_running = false;
+            }
+            m_shared_mem->Unlock();
+        }
+#endif
+        
+        {
+            cplib::AutoMutex lock(*m_log_mutex);
+            if (m_log_file->is_open()) {
+                *m_log_file << get_current_time_string(true) << " [PID: " << getpid() 
+                           << " Child1] exited" << std::endl;
+                m_log_file->flush();
+            }
+            std::cout << get_current_time_string(true) << " [PID: " << getpid() 
+                     << " Child1] exited" << std::endl;
+        }
+    }
+    
+    // Функция для дочернего процесса 2
+    void run_child2() {
+        {
+            cplib::AutoMutex lock(*m_log_mutex);
+            if (m_log_file->is_open()) {
+                *m_log_file << get_current_time_string(true) << " [PID: " << getpid() 
+                           << " Child2] started" << std::endl;
+                m_log_file->flush();
+            }
+            std::cout << get_current_time_string(true) << " [PID: " << getpid() 
+                     << " Child2] started" << std::endl;
+        }
+        
+        // Открываем разделяемую память
+        cplib::SharedMem<SharedData> local_shared_mem("counter_app_shared");
+        if (!local_shared_mem.IsValid()) {
+            log_message("Child2: Failed to open shared memory");
+            return;
+        }
+        
+        // Сохраняем оригинальное значение и увеличиваем счетчик в 2 раза
+        local_shared_mem.Lock();
+        SharedData* data = local_shared_mem.Data();
+        int original_value = 0;
+        if (data) {
+            original_value = data->counter;
+            data->counter *= 2;
+            log_message("Child2: Multiplied counter by 2. New value: " + std::to_string(data->counter));
+        }
+        local_shared_mem.Unlock();
+        
+        // Ждем 2 секунды
+        cplib::Thread::Sleep(2.0);
+        
+        // Уменьшаем счетчик в 2 раза (возвращаем к исходному значению)
+        local_shared_mem.Lock();
+        data = local_shared_mem.Data();
+        if (data) {
+            data->counter = original_value;
+            log_message("Child2: Divided counter by 2. Restored value: " + std::to_string(data->counter));
+        }
+        local_shared_mem.Unlock();
+        
+        // В Windows: сбрасываем флаг запуска
+#if defined(_WIN32)
+        if (m_shared_mem && m_shared_mem->IsValid()) {
+            m_shared_mem->Lock();
+            SharedData* master_data = m_shared_mem->Data();
+            if (master_data) {
+                master_data->child2_running = false;
+            }
+            m_shared_mem->Unlock();
+        }
+#endif
+        
+        {
+            cplib::AutoMutex lock(*m_log_mutex);
+            if (m_log_file->is_open()) {
+                *m_log_file << get_current_time_string(true) << " [PID: " << getpid() 
+                           << " Child2] exited" << std::endl;
+                m_log_file->flush();
+            }
+            std::cout << get_current_time_string(true) << " [PID: " << getpid() 
+                     << " Child2] exited" << std::endl;
+        }
+    }
+    
+    // Запуск дочернего процесса (кроссплатформенный)
+    bool launch_child_process(int child_type) {
+#if defined(_WIN32)
+        // Windows реализация - создаем новый поток через Windows API
+        DWORD thread_id;
+        HANDLE thread_handle;
+        
+        if (child_type == 1) {
+            thread_handle = CreateThread(NULL, 0, 
+                [](LPVOID param) -> DWORD {
+                    ForkThread* self = reinterpret_cast<ForkThread*>(param);
+                    self->run_child1();
+                    return 0;
+                }, this, 0, &thread_id);
+        } else {
+            thread_handle = CreateThread(NULL, 0, 
+                [](LPVOID param) -> DWORD {
+                    ForkThread* self = reinterpret_cast<ForkThread*>(param);
+                    self->run_child2();
+                    return 0;
+                }, this, 0, &thread_id);
+        }
+        
+        if (thread_handle) {
+            CloseHandle(thread_handle); // Не ждем завершения
+            return true;
+        }
+        return false;
+#else
+        // Linux реализация - через fork
+        pid_t pid = fork();
+        if (pid == 0) {
+            // Дочерний процесс
+            if (child_type == 1) {
+                run_child1();
+            } else {
+                run_child2();
+            }
+            exit(0);
+        } else if (pid > 0) {
+            // Родительский процесс
+            return true;
+        }
+        return false;
+#endif
+    }
+    
+protected:
+    virtual void Main() override {
+        while (true) {
+            cplib::Thread::Sleep(3.0); // 3 секунды
+            
+            CancelPoint(); // Точка прерывания
+            
+            if (!g_running) break;
+            
+            if (m_shared_mem && m_shared_mem->IsValid()) {
+                m_shared_mem->Lock();
+                SharedData* data = m_shared_mem->Data();
+                
+                if (data) {
+                    // Проверяем, завершились ли предыдущие копии
+#if defined(_WIN32)
+                    // В Windows используем потоки, проверяем флаги
+                    bool can_fork = true;
+                    if (data->child1_running) {
+                        can_fork = false;
+                        log_message("Skipping fork: Child1 still running");
+                    }
+                    if (data->child2_running) {
+                        can_fork = false;
+                        log_message("Skipping fork: Child2 still running");
+                    }
+                    
+                    if (can_fork) {
+                        // Запускаем копию 1
+                        data->child1_running = true;
+                        data->child1_pid = getpid(); // В Windows используем PID родителя
+                        m_shared_mem->Unlock();
+                        
+                        if (launch_child_process(1)) {
+                            log_message("Launched Child1");
+                        }
+                        
+                        // Небольшая пауза между запусками
+                        cplib::Thread::Sleep(0.1);
+                        
+                        m_shared_mem->Lock();
+                        // Запускаем копию 2
+                        data->child2_running = true;
+                        data->child2_pid = getpid();
+                        m_shared_mem->Unlock();
+                        
+                        if (launch_child_process(2)) {
+                            log_message("Launched Child2");
+                        }
+                        
+                        // Снова блокируем для обновления времени
+                        m_shared_mem->Lock();
+                        data->last_fork_time = time(nullptr);
+                    }
+#else
+                    // Linux реализация - проверяем PID
+                    bool can_fork = true;
+                    
+                    if (data->child1_pid != 0) {
+                        int status;
+                        pid_t result = waitpid(data->child1_pid, &status, WNOHANG);
+                        if (result == 0) {
+                            // Процесс еще работает
+                            can_fork = false;
+                            log_message("Skipping fork: Child1 still running (PID: " + 
+                                       std::to_string(data->child1_pid) + ")");
+                        } else if (result > 0) {
+                            // Процесс завершился
+                            data->child1_pid = 0;
+                        }
+                    }
+                    
+                    if (data->child2_pid != 0) {
+                        int status;
+                        pid_t result = waitpid(data->child2_pid, &status, WNOHANG);
+                        if (result == 0) {
+                            can_fork = false;
+                            log_message("Skipping fork: Child2 still running (PID: " + 
+                                       std::to_string(data->child2_pid) + ")");
+                        } else if (result > 0) {
+                            data->child2_pid = 0;
+                        }
+                    }
+                    
+                    if (can_fork) {
+                        // Запускаем копию 1
+                        pid_t pid1 = fork();
+                        if (pid1 == 0) {
+                            // Дочерний процесс 1
+                            run_child1();
+                            exit(0);
+                        } else if (pid1 > 0) {
+                            data->child1_pid = pid1;
+                            log_message("Launched Child1 (PID: " + std::to_string(pid1) + ")");
+                        }
+                        
+                        // Запускаем копию 2
+                        pid_t pid2 = fork();
+                        if (pid2 == 0) {
+                            // Дочерний процесс 2
+                            run_child2();
+                            exit(0);
+                        } else if (pid2 > 0) {
+                            data->child2_pid = pid2;
+                            log_message("Launched Child2 (PID: " + std::to_string(pid2) + ")");
+                        }
+                        
+                        data->last_fork_time = time(nullptr);
+                    }
+#endif
+                }
+                m_shared_mem->Unlock();
+            }
+        }
+    }
+    
+    virtual int MainStart() override { return 0; }
+    virtual void MainQuit() override {}
+    
+public:
+    ForkThread(cplib::SharedMem<SharedData>* shared_mem, std::ofstream* log_file, cplib::Mutex* log_mutex) 
+        : m_shared_mem(shared_mem), m_log_file(log_file), m_log_mutex(log_mutex) {}
+};
+
+// Кроссплатформенная функция проверки жив ли процесс
+bool is_process_alive(pid_t pid) {
+#if defined(_WIN32)
+    if (pid == 0) return false;
+    
+    HANDLE process = OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, pid);
+    if (process == NULL) {
+        return false;
+    }
+    
+    DWORD exit_code;
+    if (GetExitCodeProcess(process, &exit_code)) {
+        CloseHandle(process);
+        return (exit_code == STILL_ACTIVE);
+    }
+    
+    CloseHandle(process);
+    return false;
+#else
+    return (kill(pid, 0) == 0);
+#endif
+}
+
+// Функции для работы со временем
+std::string get_current_time_string(bool with_ms = false) {
+    auto now = std::chrono::system_clock::now();
+    auto now_time_t = std::chrono::system_clock::to_time_t(now);
+    auto now_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+        now.time_since_epoch()) % 1000;
+    
+    std::tm tm_buf;
+#if defined(_WIN32)
+    localtime_s(&tm_buf, &now_time_t);
+#else
+    localtime_r(&now_time_t, &tm_buf);
+#endif
+    
+    std::ostringstream oss;
+    oss << std::put_time(&tm_buf, "%Y-%m-%d %H:%M:%S");
+    if (with_ms) {
+        oss << '.' << std::setfill('0') << std::setw(3) << now_ms.count();
+    }
+    return oss.str();
+}
+
+// Функция логирования
+void log_message(const std::string& message) {
+    cplib::AutoMutex lock(g_log_mutex);
+    
+    if (g_log_file.is_open()) {
+        g_log_file << get_current_time_string(true) << " [PID: " << getpid();
+        if (g_is_child) {
+            g_log_file << " Child" << g_child_type;
+        }
+        g_log_file << "] " << message << std::endl;
+        g_log_file.flush();
+    }
+    
+    std::cout << get_current_time_string(true) << " [PID: " << getpid();
+    if (g_is_child) {
+        std::cout << " Child" << g_child_type;
+    }
+    std::cout << "] " << message << std::endl;
+}
+
+// Обработка командной строки
+void handle_user_input() {
+    std::cout << "\n=== Counter Application ===" << std::endl;
+    std::cout << "PID: " << getpid() << std::endl;
+    std::cout << "Status: " << (g_is_master ? "MASTER" : "SLAVE") << std::endl;
+    std::cout << "\nCommands:" << std::endl;
+    std::cout << "  set <value>  - Set counter value" << std::endl;
+    std::cout << "  get          - Get current counter value" << std::endl;
+    std::cout << "  status       - Show application status" << std::endl;
+    std::cout << "  exit         - Exit application" << std::endl;
+    std::cout << "  help         - Show this help" << std::endl;
+    std::cout << "================================\n" << std::endl;
+    
+    while (g_running) {
+        std::cout << "> ";
+        std::string command;
+        if (!std::getline(std::cin, command)) {
+            break; // EOF или ошибка ввода
+        }
+        
+        if (command == "exit" || command == "quit") {
+            g_running = false;
+            break;
+        } else if (command == "get") {
+            if (g_shared_mem && g_shared_mem->IsValid()) {
+                g_shared_mem->Lock();
+                SharedData* data = g_shared_mem->Data();
+                if (data) {
+                    std::cout << "Current counter value: " << data->counter << std::endl;
+                }
+                g_shared_mem->Unlock();
+            } else {
+                std::cout << "Shared memory not available" << std::endl;
+            }
+        } else if (command.substr(0, 4) == "set ") {
+            try {
+                int value = std::stoi(command.substr(4));
+                if (g_shared_mem && g_shared_mem->IsValid()) {
+                    g_shared_mem->Lock();
+                    SharedData* data = g_shared_mem->Data();
+                    if (data) {
+                        data->counter = value;
+                        std::cout << "Counter set to: " << value << std::endl;
+                        log_message("User set counter to " + std::to_string(value));
+                    }
+                    g_shared_mem->Unlock();
+                }
+            } catch (const std::exception& e) {
+                std::cout << "Invalid value: " << e.what() << std::endl;
+            }
+        } else if (command == "status") {
+            if (g_shared_mem && g_shared_mem->IsValid()) {
+                g_shared_mem->Lock();
+                SharedData* data = g_shared_mem->Data();
+                if (data) {
+                    std::cout << "\n=== Application Status ===" << std::endl;
+                    std::cout << "Counter value: " << data->counter << std::endl;
+                    std::cout << "Is master: " << (data->is_master ? "Yes" : "No") << std::endl;
+                    std::cout << "Master PID: " << data->master_pid << std::endl;
+                    std::cout << "This PID: " << getpid() << std::endl;
+                    std::cout << "Child1 PID: " << data->child1_pid << std::endl;
+                    std::cout << "Child2 PID: " << data->child2_pid << std::endl;
+                    std::cout << "Child1 running: " << (data->child1_running ? "Yes" : "No") << std::endl;
+                    std::cout << "Child2 running: " << (data->child2_running ? "Yes" : "No") << std::endl;
+                    
+                    std::string time_str = "Never";
+                    if (data->last_fork_time > 0) {
+                        char time_buf[26];
+#if defined(_WIN32)
+                        ctime_s(time_buf, sizeof(time_buf), &data->last_fork_time);
+                        time_str = time_buf;
+                        // Убираем символ новой строки
+                        if (!time_str.empty() && time_str.back() == '\n') {
+                            time_str.pop_back();
+                        }
+#else
+                        char* result = ctime_r(&data->last_fork_time, time_buf);
+                        if (result) {
+                            time_str = time_buf;
+                            // Убираем символ новой строки
+                            if (!time_str.empty() && time_str.back() == '\n') {
+                                time_str.pop_back();
+                            }
+                        }
+#endif
+                    }
+                    std::cout << "Last fork: " << time_str << std::endl;
+                    std::cout << "===========================\n" << std::endl;
+                }
+                g_shared_mem->Unlock();
+            }
+        } else if (command == "help") {
+            std::cout << "\nCommands:" << std::endl;
+            std::cout << "  set <value>  - Set counter value" << std::endl;
+            std::cout << "  get          - Get current counter value" << std::endl;
+            std::cout << "  status       - Show application status" << std::endl;
+            std::cout << "  exit         - Exit application" << std::endl;
+            std::cout << "  help         - Show this help" << std::endl;
+        } else if (!command.empty()) {
+            std::cout << "Unknown command. Type 'help' for help." << std::endl;
+        }
+    }
+}
+
+// Основная функция
+int main(int argc, char* argv[]) {
+    // Основной процесс
+    // Открываем лог файл
+    g_log_file.open(g_log_filename, std::ios::app);
+    if (!g_log_file.is_open()) {
+        std::cerr << "Failed to open log file: " << g_log_filename << std::endl;
+        return 1;
+    }
+    
+    // Записываем время запуска
+    log_message("Application started");
+    
+    // Открываем или создаем разделяемую память
+    try {
+        g_shared_mem = new cplib::SharedMem<SharedData>("counter_app_shared", true);
+    } catch (...) {
+        std::cerr << "Failed to create/open shared memory" << std::endl;
+        return 1;
+    }
+    
+    if (!g_shared_mem->IsValid()) {
+        std::cerr << "Shared memory is not valid" << std::endl;
+        delete g_shared_mem;
+        g_shared_mem = nullptr;
+        return 1;
+    }
+    
+    // Инициализируем разделяемую память
+    g_shared_mem->Lock();
+    SharedData* shared_data = g_shared_mem->Data();
+    
+    // Проверяем, есть ли уже мастер
+    bool master_exists = false;
+    
+    if (shared_data->counter == 0 && !shared_data->is_master) {
+        // Первая программа или сброшенное состояние
+        shared_data->counter = 0;
+        shared_data->is_master = true;
+        shared_data->master_pid = getpid();
+        shared_data->last_fork_time = 0;
+        shared_data->child1_pid = 0;
+        shared_data->child2_pid = 0;
+        shared_data->child1_running = false;
+        shared_data->child2_running = false;
+        g_is_master = true;
+        log_message("This process is MASTER (initialized shared memory)");
+    } else if (shared_data->is_master) {
+        // Проверяем, жив ли мастер
+        bool master_alive = false;
+        
+        if (shared_data->master_pid == getpid()) {
+            // Это мы сами!
+            master_alive = true;
+        } else {
+            master_alive = is_process_alive(shared_data->master_pid);
+        }
+        
+        if (master_alive) {
+            master_exists = true;
+            log_message("Master already exists (PID: " + std::to_string(shared_data->master_pid) + 
+                       "). This process is SLAVE");
+        } else {
+            // Мастер умер, становимся мастером
+            shared_data->is_master = true;
+            shared_data->master_pid = getpid();
+            shared_data->child1_pid = 0;
+            shared_data->child2_pid = 0;
+            shared_data->child1_running = false;
+            shared_data->child2_running = false;
+            g_is_master = true;
+            log_message("Master died. This process is now MASTER");
+        }
+    } else {
+        // Нет мастера, становимся мастером
+        shared_data->is_master = true;
+        shared_data->master_pid = getpid();
+        g_is_master = true;
+        log_message("No master found. This process is now MASTER");
+    }
+    
+    g_shared_mem->Unlock();
+    
+    // Если мы не мастер, не запускаем логирование и форкинг
+    if (g_is_master) {
+        // Создаем и запускаем потоки только если мы мастер
+        TimerThread* timer_thread = new TimerThread(g_shared_mem, g_is_master);
+        LogThread* log_thread = new LogThread(g_shared_mem, &g_log_file, &g_log_mutex);
+        ForkThread* fork_thread = new ForkThread(g_shared_mem, &g_log_file, &g_log_mutex);
+        
+        // Запускаем потоки
+        timer_thread->Start();
+        log_thread->Start();
+        fork_thread->Start();
+        
+        // Ждем запуска потоков
+        timer_thread->WaitStartup();
+        log_thread->WaitStartup();
+        fork_thread->WaitStartup();
+        
+        // Запускаем обработку команд пользователя
+        handle_user_input();
+        
+        // Останавливаем все потоки
+        g_running = false;
+        timer_thread->Stop();
+        log_thread->Stop();
+        fork_thread->Stop();
+        
+        // Ждем завершения потоков
+        timer_thread->Join(1.0);
+        log_thread->Join(1.0);
+        fork_thread->Join(1.0);
+        
+        // Освобождаем память
+        delete timer_thread;
+        delete log_thread;
+        delete fork_thread;
+    } else {
+        // Слейв-процесс: только таймер
+        TimerThread* timer_thread = new TimerThread(g_shared_mem, g_is_master);
+        
+        // Запускаем таймер
+        timer_thread->Start();
+        timer_thread->WaitStartup();
+        
+        // Запускаем обработку команд пользователя
+        handle_user_input();
+        
+        // Останавливаем таймер
+        g_running = false;
+        timer_thread->Stop();
+        timer_thread->Join(1.0);
+        
+        // Освобождаем память
+        delete timer_thread;
+    }
+    
+    // Если мы мастер, очищаем флаг мастера перед выходом
+    if (g_is_master && g_shared_mem && g_shared_mem->IsValid()) {
+        g_shared_mem->Lock();
+        SharedData* data = g_shared_mem->Data();
+        if (data && data->master_pid == getpid()) {
+            data->is_master = false;
+            data->master_pid = 0;
+            log_message("Master shutting down");
+        }
+        g_shared_mem->Unlock();
+    }
+    
+    // Закрываем лог файл
+    log_message("Application stopped");
+    g_log_file.close();
+    
+    // Освобождаем память
+    if (g_shared_mem) {
+        delete g_shared_mem;
+        g_shared_mem = nullptr;
+    }
+    
+    return 0;
+}
