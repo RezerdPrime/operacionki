@@ -7,5 +7,5 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(LAB3 main.cpp)
 
 if(UNIX)
-    target_link_libraries(main pthread rt)
+    target_link_libraries(LAB3 pthread rt)
 endif()
