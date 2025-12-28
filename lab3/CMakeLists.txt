@@ -5,3 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Добавьте исполняемый файл
 add_executable(LAB3 main.cpp)
+
+if(UNIX)
+    target_link_libraries(main pthread rt)
+endif()
