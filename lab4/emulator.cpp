@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <thread>
 #include <chrono>
+#include <string>
 
 void portable_sleep_ms(unsigned long ms) {
 #if defined(_WIN32)
@@ -15,7 +16,7 @@ void portable_sleep_ms(unsigned long ms) {
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <PORT>\n"; //
+        std::cerr << "Usage: " << argv[0] << " <PORT>\n";
         return 1;
     }
 
@@ -33,9 +34,13 @@ int main(int argc, char* argv[]) {
     while (true) {
         double temp = d(gen);
         char buf[32];
-        snprintf(buf, sizeof(buf), "%.2f\n", temp);
-        port.Write(buf);
-        std::cout << "Sent: " << buf;
+        snprintf(buf, sizeof(buf), "%.2f", temp);
+
+        // защита от битых данных
+        std::string msg = std::string(buf) + "\n" + std::string(buf) + "\n";
+        port.Write(msg.c_str());
+        std::cout << "Sent (dual): " << buf << "\n";
+
         portable_sleep_ms(5000);
     }
 

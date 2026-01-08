@@ -10,7 +10,7 @@
 #include <chrono>
 #include <thread>
 #include <cstdlib>
-
+#include <string>
 
 void portable_sleep_ms(unsigned long ms) {
 #if defined(_WIN32)
@@ -68,7 +68,7 @@ void trim_log_file(const std::string& filename, time_t cutoff_time) {
     }
 }
 
-int main(int argc, char* argv[]) { // мб порт менять придется
+int main(int argc, char* argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: " << argv[0] << " <PORT>\n";
         return 1;
@@ -103,13 +103,14 @@ int main(int argc, char* argv[]) { // мб порт менять придетс�
     current_day.tm_min = 0;
     current_day.tm_sec = 0;
 
+    std::string last_line; // буфер предыдущей строки для сравнения
+
     while (true) {
-        std::string data;
-        size_t bytes_read = 0;
+        std::string line;
         char buffer[256] = {0};
 
-        std::string line;
         while (true) {
+            size_t bytes_read = 0;
             int err = port.Read(buffer, 1, &bytes_read);
             if (err != cplib::SerialPort::RE_OK || bytes_read == 0) break;
             if (buffer[0] == '\n') break;
@@ -121,88 +122,99 @@ int main(int argc, char* argv[]) { // мб порт менять придетс�
             continue;
         }
 
-        double temp;
+        // Проверяем, что строка — корректное число
+        double temp_candidate;
         try {
-            temp = std::stod(line);
+            temp_candidate = std::stod(line);
         } catch (...) {
+            last_line.clear();
             continue;
         }
 
-        auto now_time = std::time(nullptr);
-        std::tm now_tm = *std::localtime(&now_time);
+        if (!last_line.empty()) {
+            if (last_line == line) {
+                double temp = temp_candidate;
+                auto now_time = std::time(nullptr);
+                std::tm now_tm = *std::localtime(&now_time);
 
-        std::ofstream main_log("main.log", std::ios::app);
-        main_log << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S") << " " << temp << "\n";
-        main_log.close();
+                std::ofstream main_log("main.log", std::ios::app);
+                main_log << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S") << " " << temp << "\n";
+                main_log.close();
 
-        auto cutoff_24h = now_time - 24 * 3600;
-        trim_log_file("main.log", cutoff_24h);
+                auto cutoff_24h = now_time - 24 * 3600;
+                trim_log_file("main.log", cutoff_24h);
 
-        current_hour_data.emplace_back(now_time, temp);
-        current_day_data.emplace_back(now_time, temp);
+                current_hour_data.emplace_back(now_time, temp);
+                current_day_data.emplace_back(now_time, temp);
 
-        std::tm hour_start = now_tm;
-        hour_start.tm_min = 0;
-        hour_start.tm_sec = 0;
-        time_t hour_start_time = std::mktime(&hour_start);
-        time_t current_hour_time = std::mktime(&current_hour);
+                std::tm hour_start = now_tm;
+                hour_start.tm_min = 0;
+                hour_start.tm_sec = 0;
+                time_t hour_start_time = std::mktime(&hour_start);
+                time_t current_hour_time = std::mktime(&current_hour);
 
-        if (hour_start_time > current_hour_time) {
+                if (hour_start_time > current_hour_time) {
+                    if (!current_hour_data.empty()) {
+                        double sum = 0.0;
+                        for (const auto& p : current_hour_data) sum += p.second;
+                        double avg = sum / current_hour_data.size();
 
-            if (!current_hour_data.empty()) {
-                double sum = 0.0;
-                for (const auto& p : current_hour_data) sum += p.second;
-                double avg = sum / current_hour_data.size();
+                        std::ofstream hourly_log("hourly_avg.log", std::ios::app);
+                        hourly_log << std::put_time(&current_hour, "%Y-%m-%d %H:00:00") << " " << avg << "\n";
+                        hourly_log.close();
 
-                std::ofstream hourly_log("hourly_avg.log", std::ios::app);
-                hourly_log << "\n" << std::put_time(&current_hour, "%Y-%m-%d %H:00:00") << " " << avg;// << "\n";
-                hourly_log.close();
-
-                auto cutoff_month = now_time - 30 * 24 * 3600;
-                trim_log_file("hourly_avg.log", cutoff_month);
-            }
-            current_hour = hour_start;
-            current_hour_data.clear();
-        }
-
-        std::tm day_start = now_tm;
-        day_start.tm_hour = 0;
-        day_start.tm_min = 0;
-        day_start.tm_sec = 0;
-        time_t day_start_time = std::mktime(&day_start);
-        time_t current_day_time = std::mktime(&current_day);
-
-        if (day_start_time > current_day_time) {
-
-            if (!current_day_data.empty()) {
-                double sum = 0.0;
-                for (const auto& p : current_day_data) sum += p.second;
-                double avg = sum / current_day_data.size();
-
-                std::ofstream daily_log("daily_avg.log", std::ios::app);
-                daily_log << std::put_time(&current_day, "%Y-%m-%d 00:00:00") << " " << avg << "\n";
-                daily_log.close();
-
-                int current_year = now_tm.tm_year + 1900;
-                std::vector<std::string> valid_lines;
-                std::ifstream in("daily_avg.log");
-                std::string l;
-                while (std::getline(in, l)) {
-                    if (l.size() >= 4) {
-                        try {
-                            int year = std::stoi(l.substr(0, 4));
-                            if (year == current_year) {
-                                valid_lines.push_back(l);
-                            }
-                        } catch (...) {}
+                        auto cutoff_month = now_time - 30 * 24 * 3600;
+                        trim_log_file("hourly_avg.log", cutoff_month);
                     }
+                    current_hour = hour_start;
+                    current_hour_data.clear();
                 }
-                in.close();
-                std::ofstream out("daily_avg.log");
-                for (const auto& vl : valid_lines) out << vl << '\n';
+
+                std::tm day_start = now_tm;
+                day_start.tm_hour = 0;
+                day_start.tm_min = 0;
+                day_start.tm_sec = 0;
+                time_t day_start_time = std::mktime(&day_start);
+                time_t current_day_time = std::mktime(&current_day);
+
+                if (day_start_time > current_day_time) {
+                    if (!current_day_data.empty()) {
+                        double sum = 0.0;
+                        for (const auto& p : current_day_data) sum += p.second;
+                        double avg = sum / current_day_data.size();
+
+                        std::ofstream daily_log("daily_avg.log", std::ios::app);
+                        daily_log << std::put_time(&current_day, "%Y-%m-%d 00:00:00") << " " << avg << "\n";
+                        daily_log.close();
+
+                        int current_year = now_tm.tm_year + 1900;
+                        std::vector<std::string> valid_lines;
+                        std::ifstream in("daily_avg.log");
+                        std::string l;
+                        while (std::getline(in, l)) {
+                            if (l.size() >= 4) {
+                                try {
+                                    int year = std::stoi(l.substr(0, 4));
+                                    if (year == current_year) {
+                                        valid_lines.push_back(l);
+                                    }
+                                } catch (...) {}
+                            }
+                        }
+                        in.close();
+
+                        std::ofstream out("daily_avg.log");
+                        for (const auto& vl : valid_lines) {
+                            out << vl << '\n';
+                        }
+                    }
+                    current_day = day_start;
+                    current_day_data.clear();
+                }
             }
-            current_day = day_start;
-            current_day_data.clear();
+            last_line.clear();
+        } else {
+            last_line = line;
         }
 
         portable_sleep_ms(10);
