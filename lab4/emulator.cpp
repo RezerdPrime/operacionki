@@ -46,3 +46,6 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
+// на винде юзал com0com, на линухе socat
+// socat -d -d pty,raw,echo=0,link=/tmp/vcp0 pty,raw,echo=0,link=/tmp/vcp1
