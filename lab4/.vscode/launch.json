@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/listener.exe",
-            "args": ["COM4"],          // ←←← СЮДА передайте нужный порт
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "externalConsole": true,
@@ -26,7 +26,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/emulator.exe",
-            "args": [],  // эмулятору аргументы не нужны
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "externalConsole": true,
