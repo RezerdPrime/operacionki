@@ -136,3 +136,809 @@
 2025-12-28 16:38:53.128 [PID: 14888 Child2] exited
 2025-12-28 16:38:54.013 [PID: 19100] Master shutting down
 2025-12-28 16:38:54.014 [PID: 19100] Application stopped
+2025-12-28 19:03:25.388 [PID: 14996] Application started
+2025-12-28 19:03:25.389 [PID: 14996] This process is MASTER (initialized shared memory)
+2025-12-28 19:03:26.396 [PID: 14996 Master] Counter = 3
+2025-12-28 19:03:27.412 [PID: 14996 Master] Counter = 6
+2025-12-28 19:03:28.395 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:28.399 [PID: 12520 Child1] started
+2025-12-28 19:03:28.400 [PID: 12520 Child1] Added 10 to counter. New value: 19
+2025-12-28 19:03:28.401 [PID: 12520 Child1] exited
+2025-12-28 19:03:28.422 [PID: 14996 Master] Counter = 19
+2025-12-28 19:03:28.503 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:28.507 [PID: 7844 Child2] started
+2025-12-28 19:03:28.508 [PID: 7844 Child2] Multiplied counter by 2. New value: 40
+2025-12-28 19:03:29.428 [PID: 14996 Master] Counter = 43
+2025-12-28 19:03:30.304 [PID: 19816] Application started
+2025-12-28 19:03:30.305 [PID: 19816] Master already exists (PID: 14996). This process is SLAVE
+2025-12-28 19:03:30.432 [PID: 14996 Master] Counter = 46
+2025-12-28 19:03:30.524 [PID: 7844 Child2] Divided counter by 2. Restored value: 23
+2025-12-28 19:03:30.525 [PID: 7844 Child2] exited
+2025-12-28 19:03:31.440 [PID: 14996 Master] Counter = 29
+2025-12-28 19:03:31.519 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:31.523 [PID: 10732 Child1] started
+2025-12-28 19:03:31.524 [PID: 10732 Child1] Added 10 to counter. New value: 39
+2025-12-28 19:03:31.525 [PID: 10732 Child1] exited
+2025-12-28 19:03:31.628 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:31.632 [PID: 17372 Child2] started
+2025-12-28 19:03:31.633 [PID: 17372 Child2] Multiplied counter by 2. New value: 82
+2025-12-28 19:03:32.442 [PID: 14996 Master] Counter = 86
+2025-12-28 19:03:33.443 [PID: 14996 Master] Counter = 94
+2025-12-28 19:03:33.645 [PID: 17372 Child2] Divided counter by 2. Restored value: 47
+2025-12-28 19:03:33.646 [PID: 17372 Child2] exited
+2025-12-28 19:03:34.449 [PID: 14996 Master] Counter = 53
+2025-12-28 19:03:34.637 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:34.641 [PID: 3804 Child1] started
+2025-12-28 19:03:34.642 [PID: 3804 Child1] Added 10 to counter. New value: 63
+2025-12-28 19:03:34.642 [PID: 3804 Child1] exited
+2025-12-28 19:03:34.744 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:34.748 [PID: 12972 Child2] started
+2025-12-28 19:03:34.749 [PID: 12972 Child2] Multiplied counter by 2. New value: 130
+2025-12-28 19:03:35.461 [PID: 14996 Master] Counter = 134
+2025-12-28 19:03:36.467 [PID: 14996 Master] Counter = 140
+2025-12-28 19:03:36.764 [PID: 12972 Child2] Divided counter by 2. Restored value: 71
+2025-12-28 19:03:36.765 [PID: 12972 Child2] exited
+2025-12-28 19:03:37.476 [PID: 14996 Master] Counter = 77
+2025-12-28 19:03:37.753 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:37.757 [PID: 2808 Child1] started
+2025-12-28 19:03:37.758 [PID: 2808 Child1] Added 10 to counter. New value: 89
+2025-12-28 19:03:37.759 [PID: 2808 Child1] exited
+2025-12-28 19:03:37.861 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:37.865 [PID: 17204 Child2] started
+2025-12-28 19:03:37.866 [PID: 17204 Child2] Multiplied counter by 2. New value: 178
+2025-12-28 19:03:38.491 [PID: 14996 Master] Counter = 182
+2025-12-28 19:03:39.501 [PID: 14996 Master] Counter = 188
+2025-12-28 19:03:39.872 [PID: 17204 Child2] Divided counter by 2. Restored value: 95
+2025-12-28 19:03:39.873 [PID: 17204 Child2] exited
+2025-12-28 19:03:40.514 [PID: 14996 Master] Counter = 99
+2025-12-28 19:03:40.878 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:40.882 [PID: 19064 Child1] started
+2025-12-28 19:03:40.883 [PID: 19064 Child1] Added 10 to counter. New value: 113
+2025-12-28 19:03:40.914 [PID: 19064 Child1] exited
+2025-12-28 19:03:40.986 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:40.990 [PID: 7688 Child2] started
+2025-12-28 19:03:40.991 [PID: 7688 Child2] Multiplied counter by 2. New value: 226
+2025-12-28 19:03:41.516 [PID: 14996 Master] Counter = 230
+2025-12-28 19:03:42.529 [PID: 14996 Master] Counter = 236
+2025-12-28 19:03:42.998 [PID: 7688 Child2] Divided counter by 2. Restored value: 119
+2025-12-28 19:03:43.000 [PID: 7688 Child2] exited
+2025-12-28 19:03:43.531 [PID: 14996 Master] Counter = 123
+2025-12-28 19:03:44.000 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:44.004 [PID: 9128 Child1] started
+2025-12-28 19:03:44.005 [PID: 9128 Child1] Added 10 to counter. New value: 137
+2025-12-28 19:03:44.005 [PID: 9128 Child1] exited
+2025-12-28 19:03:44.108 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:44.113 [PID: 21140 Child2] started
+2025-12-28 19:03:44.113 [PID: 21140 Child2] Multiplied counter by 2. New value: 274
+2025-12-28 19:03:44.542 [PID: 14996 Master] Counter = 276
+2025-12-28 19:03:45.555 [PID: 14996 Master] Counter = 284
+2025-12-28 19:03:46.116 [PID: 21140 Child2] Divided counter by 2. Restored value: 143
+2025-12-28 19:03:46.264 [PID: 21140 Child2] exited
+2025-12-28 19:03:47.120 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:47.124 [PID: 14556 Child1] started
+2025-12-28 19:03:47.125 [PID: 14556 Child1] Added 10 to counter. New value: 161
+2025-12-28 19:03:47.162 [PID: 14556 Child1] exited
+2025-12-28 19:03:47.230 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:47.234 [PID: 15900 Child2] started
+2025-12-28 19:03:47.235 [PID: 15900 Child2] Multiplied counter by 2. New value: 322
+2025-12-28 19:03:47.284 [PID: 14996 Master] Counter = 322
+2025-12-28 19:03:48.291 [PID: 14996 Master] Counter = 330
+2025-12-28 19:03:49.243 [PID: 15900 Child2] Divided counter by 2. Restored value: 168
+2025-12-28 19:03:49.245 [PID: 15900 Child2] exited
+2025-12-28 19:03:49.308 [PID: 14996 Master] Counter = 168
+2025-12-28 19:03:50.241 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:50.246 [PID: 4352 Child1] started
+2025-12-28 19:03:50.247 [PID: 4352 Child1] Added 10 to counter. New value: 184
+2025-12-28 19:03:50.272 [PID: 4352 Child1] exited
+2025-12-28 19:03:50.327 [PID: 14996 Master] Counter = 184
+2025-12-28 19:03:50.349 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:50.354 [PID: 10424 Child2] started
+2025-12-28 19:03:50.355 [PID: 10424 Child2] Multiplied counter by 2. New value: 368
+2025-12-28 19:03:51.338 [PID: 14996 Master] Counter = 374
+2025-12-28 19:03:52.340 [PID: 14996 Master] Counter = 382
+2025-12-28 19:03:52.356 [PID: 10424 Child2] Divided counter by 2. Restored value: 191
+2025-12-28 19:03:52.357 [PID: 10424 Child2] exited
+2025-12-28 19:03:53.343 [PID: 14996 Master] Counter = 197
+2025-12-28 19:03:53.360 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:53.364 [PID: 9260 Child1] started
+2025-12-28 19:03:53.364 [PID: 9260 Child1] Added 10 to counter. New value: 207
+2025-12-28 19:03:53.365 [PID: 9260 Child1] exited
+2025-12-28 19:03:53.469 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:53.473 [PID: 20076 Child2] started
+2025-12-28 19:03:53.473 [PID: 20076 Child2] Multiplied counter by 2. New value: 414
+2025-12-28 19:03:54.354 [PID: 14996 Master] Counter = 420
+2025-12-28 19:03:55.363 [PID: 14996 Master] Counter = 426
+2025-12-28 19:03:55.477 [PID: 20076 Child2] Divided counter by 2. Restored value: 214
+2025-12-28 19:03:55.478 [PID: 20076 Child2] exited
+2025-12-28 19:03:56.377 [PID: 14996 Master] Counter = 220
+2025-12-28 19:03:56.489 [PID: 14996 Master] Launched Child1
+2025-12-28 19:03:56.494 [PID: 17316 Child1] started
+2025-12-28 19:03:56.495 [PID: 17316 Child1] Added 10 to counter. New value: 230
+2025-12-28 19:03:56.496 [PID: 17316 Child1] exited
+2025-12-28 19:03:56.611 [PID: 14996 Master] Launched Child2
+2025-12-28 19:03:56.616 [PID: 10792 Child2] started
+2025-12-28 19:03:56.617 [PID: 10792 Child2] Multiplied counter by 2. New value: 464
+2025-12-28 19:03:57.383 [PID: 14996 Master] Counter = 468
+2025-12-28 19:04:16.396 [PID: 12216] Application started
+2025-12-28 19:04:16.397 [PID: 12216] This process is MASTER (initialized shared memory)
+2025-12-28 19:04:17.406 [PID: 12216 Master] Counter = 3
+2025-12-28 19:04:18.411 [PID: 12216 Master] Counter = 6
+2025-12-28 19:04:19.415 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:19.419 [PID: 9996 Child1] started
+2025-12-28 19:04:19.420 [PID: 9996 Child1] Added 10 to counter. New value: 19
+2025-12-28 19:04:19.420 [PID: 9996 Child1] exited
+2025-12-28 19:04:19.427 [PID: 12216 Master] Counter = 19
+2025-12-28 19:04:19.526 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:19.531 [PID: 15272 Child2] started
+2025-12-28 19:04:19.531 [PID: 15272 Child2] Multiplied counter by 2. New value: 40
+2025-12-28 19:04:20.436 [PID: 12216 Master] Counter = 43
+2025-12-28 19:04:21.011 [PID: 19740] Application started
+2025-12-28 19:04:21.012 [PID: 19740] Master already exists (PID: 12216). This process is SLAVE
+2025-12-28 19:04:21.439 [PID: 12216 Master] Counter = 47
+2025-12-28 19:04:21.549 [PID: 15272 Child2] Divided counter by 2. Restored value: 23
+2025-12-28 19:04:21.551 [PID: 15272 Child2] exited
+2025-12-28 19:04:22.454 [PID: 12216 Master] Counter = 29
+2025-12-28 19:04:22.541 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:22.546 [PID: 19672 Child1] started
+2025-12-28 19:04:22.547 [PID: 19672 Child1] Added 10 to counter. New value: 39
+2025-12-28 19:04:22.547 [PID: 19672 Child1] exited
+2025-12-28 19:04:22.654 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:22.658 [PID: 9308 Child2] started
+2025-12-28 19:04:22.659 [PID: 9308 Child2] Multiplied counter by 2. New value: 82
+2025-12-28 19:04:23.470 [PID: 12216 Master] Counter = 86
+2025-12-28 19:04:24.481 [PID: 12216 Master] Counter = 94
+2025-12-28 19:04:24.669 [PID: 9308 Child2] Divided counter by 2. Restored value: 47
+2025-12-28 19:04:24.670 [PID: 9308 Child2] exited
+2025-12-28 19:04:25.496 [PID: 12216 Master] Counter = 53
+2025-12-28 19:04:25.670 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:25.675 [PID: 10948 Child1] started
+2025-12-28 19:04:25.676 [PID: 10948 Child1] Added 10 to counter. New value: 64
+2025-12-28 19:04:25.701 [PID: 10948 Child1] exited
+2025-12-28 19:04:25.778 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:25.783 [PID: 12100 Child2] started
+2025-12-28 19:04:25.784 [PID: 12100 Child2] Multiplied counter by 2. New value: 130
+2025-12-28 19:04:26.511 [PID: 12216 Master] Counter = 134
+2025-12-28 19:04:27.517 [PID: 12216 Master] Counter = 140
+2025-12-28 19:04:27.800 [PID: 12100 Child2] Divided counter by 2. Restored value: 71
+2025-12-28 19:04:27.801 [PID: 12100 Child2] exited
+2025-12-28 19:04:28.523 [PID: 12216 Master] Counter = 77
+2025-12-28 19:04:28.789 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:28.795 [PID: 2560 Child1] started
+2025-12-28 19:04:28.796 [PID: 2560 Child1] Added 10 to counter. New value: 88
+2025-12-28 19:04:28.796 [PID: 2560 Child1] exited
+2025-12-28 19:04:28.898 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:28.902 [PID: 10568 Child2] started
+2025-12-28 19:04:28.903 [PID: 10568 Child2] Multiplied counter by 2. New value: 178
+2025-12-28 19:04:29.526 [PID: 12216 Master] Counter = 182
+2025-12-28 19:04:30.531 [PID: 12216 Master] Counter = 188
+2025-12-28 19:04:30.904 [PID: 10568 Child2] Divided counter by 2. Restored value: 95
+2025-12-28 19:04:30.906 [PID: 10568 Child2] exited
+2025-12-28 19:04:31.545 [PID: 12216 Master] Counter = 99
+2025-12-28 19:04:31.905 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:31.910 [PID: 14172 Child1] started
+2025-12-28 19:04:31.911 [PID: 14172 Child1] Added 10 to counter. New value: 111
+2025-12-28 19:04:31.940 [PID: 14172 Child1] exited
+2025-12-28 19:04:32.013 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:32.017 [PID: 15836 Child2] started
+2025-12-28 19:04:32.018 [PID: 15836 Child2] Multiplied counter by 2. New value: 226
+2025-12-28 19:04:32.556 [PID: 12216 Master] Counter = 229
+2025-12-28 19:04:33.561 [PID: 12216 Master] Counter = 236
+2025-12-28 19:04:34.031 [PID: 15836 Child2] Divided counter by 2. Restored value: 119
+2025-12-28 19:04:34.032 [PID: 15836 Child2] exited
+2025-12-28 19:04:34.568 [PID: 12216 Master] Counter = 123
+2025-12-28 19:04:35.023 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:35.027 [PID: 12356 Child1] started
+2025-12-28 19:04:35.028 [PID: 12356 Child1] Added 10 to counter. New value: 135
+2025-12-28 19:04:35.060 [PID: 12356 Child1] exited
+2025-12-28 19:04:35.131 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:35.136 [PID: 13560 Child2] started
+2025-12-28 19:04:35.136 [PID: 13560 Child2] Multiplied counter by 2. New value: 274
+2025-12-28 19:04:35.579 [PID: 12216 Master] Counter = 276
+2025-12-28 19:04:36.585 [PID: 12216 Master] Counter = 282
+2025-12-28 19:04:37.138 [PID: 13560 Child2] Divided counter by 2. Restored value: 143
+2025-12-28 19:04:37.139 [PID: 13560 Child2] exited
+2025-12-28 19:04:37.592 [PID: 12216 Master] Counter = 147
+2025-12-28 19:04:38.144 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:38.149 [PID: 16456 Child1] started
+2025-12-28 19:04:38.150 [PID: 16456 Child1] Added 10 to counter. New value: 159
+2025-12-28 19:04:38.179 [PID: 16456 Child1] exited
+2025-12-28 19:04:38.253 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:38.258 [PID: 12940 Child2] started
+2025-12-28 19:04:38.258 [PID: 12940 Child2] Multiplied counter by 2. New value: 322
+2025-12-28 19:04:38.608 [PID: 12216 Master] Counter = 324
+2025-12-28 19:04:39.625 [PID: 12216 Master] Counter = 330
+2025-12-28 19:04:40.266 [PID: 12940 Child2] Divided counter by 2. Restored value: 167
+2025-12-28 19:04:40.267 [PID: 12940 Child2] exited
+2025-12-28 19:04:40.627 [PID: 12216 Master] Counter = 169
+2025-12-28 19:04:41.269 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:41.272 [PID: 7132 Child1] started
+2025-12-28 19:04:41.273 [PID: 7132 Child1] Added 10 to counter. New value: 183
+2025-12-28 19:04:41.274 [PID: 7132 Child1] exited
+2025-12-28 19:04:41.379 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:41.383 [PID: 5968 Child2] started
+2025-12-28 19:04:41.384 [PID: 5968 Child2] Multiplied counter by 2. New value: 370
+2025-12-28 19:04:41.640 [PID: 12216 Master] Counter = 372
+2025-12-28 19:04:42.643 [PID: 12216 Master] Counter = 378
+2025-12-28 19:04:43.401 [PID: 5968 Child2] Divided counter by 2. Restored value: 191
+2025-12-28 19:04:43.402 [PID: 5968 Child2] exited
+2025-12-28 19:04:43.660 [PID: 12216 Master] Counter = 193
+2025-12-28 19:04:44.387 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:44.392 [PID: 8800 Child1] started
+2025-12-28 19:04:44.393 [PID: 8800 Child1] Added 10 to counter. New value: 208
+2025-12-28 19:04:44.417 [PID: 8800 Child1] exited
+2025-12-28 19:04:44.500 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:44.505 [PID: 13888 Child2] started
+2025-12-28 19:04:44.506 [PID: 13888 Child2] Multiplied counter by 2. New value: 418
+2025-12-28 19:04:44.690 [PID: 12216 Master] Counter = 418
+2025-12-28 19:04:45.701 [PID: 12216 Master] Counter = 426
+2025-12-28 19:04:46.514 [PID: 13888 Child2] Divided counter by 2. Restored value: 215
+2025-12-28 19:04:46.515 [PID: 13888 Child2] exited
+2025-12-28 19:04:46.705 [PID: 12216 Master] Counter = 217
+2025-12-28 19:04:47.521 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:47.526 [PID: 12744 Child1] started
+2025-12-28 19:04:47.527 [PID: 12744 Child1] Added 10 to counter. New value: 232
+2025-12-28 19:04:47.527 [PID: 12744 Child1] exited
+2025-12-28 19:04:47.618 [PID: 2272] Application started
+2025-12-28 19:04:47.619 [PID: 2272] Master already exists (PID: 12216). This process is SLAVE
+2025-12-28 19:04:47.635 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:47.639 [PID: 2484 Child2] started
+2025-12-28 19:04:47.640 [PID: 2484 Child2] Multiplied counter by 2. New value: 466
+2025-12-28 19:04:47.713 [PID: 12216 Master] Counter = 466
+2025-12-28 19:04:48.716 [PID: 12216 Master] Counter = 476
+2025-12-28 19:04:49.654 [PID: 2484 Child2] Divided counter by 2. Restored value: 243
+2025-12-28 19:04:49.655 [PID: 2484 Child2] exited
+2025-12-28 19:04:49.731 [PID: 12216 Master] Counter = 244
+2025-12-28 19:04:50.645 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:50.650 [PID: 20960 Child1] started
+2025-12-28 19:04:50.650 [PID: 20960 Child1] Added 10 to counter. New value: 263
+2025-12-28 19:04:50.651 [PID: 20960 Child1] exited
+2025-12-28 19:04:50.737 [PID: 12216 Master] Counter = 264
+2025-12-28 19:04:50.755 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:50.759 [PID: 10680 Child2] started
+2025-12-28 19:04:50.760 [PID: 10680 Child2] Multiplied counter by 2. New value: 528
+2025-12-28 19:04:51.747 [PID: 12216 Master] Counter = 537
+2025-12-28 19:04:52.758 [PID: 12216 Master] Counter = 547
+2025-12-28 19:04:52.773 [PID: 10680 Child2] Divided counter by 2. Restored value: 273
+2025-12-28 19:04:52.775 [PID: 10680 Child2] exited
+2025-12-28 19:04:53.761 [PID: 12216 Master] Launched Child1
+2025-12-28 19:04:53.765 [PID: 19992 Child1] started
+2025-12-28 19:04:53.766 [PID: 19992 Child1] Added 10 to counter. New value: 293
+2025-12-28 19:04:53.767 [PID: 19992 Child1] exited
+2025-12-28 19:04:53.774 [PID: 12216 Master] Counter = 294
+2025-12-28 19:04:53.870 [PID: 12216 Master] Launched Child2
+2025-12-28 19:04:53.875 [PID: 10040 Child2] started
+2025-12-28 19:04:53.876 [PID: 10040 Child2] Multiplied counter by 2. New value: 588
+2025-12-28 19:04:54.784 [PID: 12216 Master] Counter = 597
+2025-12-28 19:04:55.787 [PID: 12216 Master] Counter = 606
+2025-12-28 19:04:55.883 [PID: 10040 Child2] Divided counter by 2. Restored value: 303
+2025-12-28 19:04:55.884 [PID: 10040 Child2] exited
+2025-12-28 19:04:56.789 [PID: 12216 Master] Counter = 311
+2025-12-28 19:04:56.888 [PID: 17844 Child1] started
+2025-12-28 19:05:02.903 [PID: 17844 Child1] Added 10 to counter. New value: 381
+2025-12-28 19:05:02.903 [PID: 12216 Master] Launched Child1
+2025-12-28 19:05:02.904 [PID: 17844 Child1] exited
+2025-12-28 19:05:03.015 [PID: 12216 Master] Launched Child2
+2025-12-28 19:05:03.019 [PID: 7040 Child2] started
+2025-12-28 19:05:03.020 [PID: 7040 Child2] Multiplied counter by 2. New value: 764
+2025-12-28 19:05:03.920 [PID: 12216 Master] Counter = 773
+2025-12-28 19:05:04.931 [PID: 12216 Master] Counter = 784
+2025-12-28 19:05:05.038 [PID: 7040 Child2] Divided counter by 2. Restored value: 392
+2025-12-28 19:05:05.040 [PID: 7040 Child2] exited
+2025-12-28 19:05:06.138 [PID: 12216] Master shutting down
+2025-12-28 19:05:06.139 [PID: 12216] Application stopped
+2025-12-28 19:05:31.731 [PID: 4392] Application started
+2025-12-28 19:05:31.733 [PID: 4392] No master found. This process is now MASTER
+2025-12-28 19:05:32.739 [PID: 4392 Master] Counter = 576
+2025-12-28 19:05:33.745 [PID: 4392 Master] Counter = 587
+2025-12-28 19:05:34.742 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:34.745 [PID: 16328 Child1] started
+2025-12-28 19:05:34.746 [PID: 16328 Child1] Added 10 to counter. New value: 606
+2025-12-28 19:05:34.747 [PID: 16328 Child1] exited
+2025-12-28 19:05:34.759 [PID: 4392 Master] Counter = 606
+2025-12-28 19:05:34.861 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:34.865 [PID: 12212 Child2] started
+2025-12-28 19:05:34.866 [PID: 12212 Child2] Multiplied counter by 2. New value: 1214
+2025-12-28 19:05:35.771 [PID: 4392 Master] Counter = 1223
+2025-12-28 19:05:36.781 [PID: 4392 Master] Counter = 1232
+2025-12-28 19:05:36.883 [PID: 12212 Child2] Divided counter by 2. Restored value: 617
+2025-12-28 19:05:36.885 [PID: 12212 Child2] exited
+2025-12-28 19:05:37.796 [PID: 4392 Master] Counter = 626
+2025-12-28 19:05:37.876 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:37.881 [PID: 15544 Child1] started
+2025-12-28 19:05:37.881 [PID: 15544 Child1] Added 10 to counter. New value: 636
+2025-12-28 19:05:37.882 [PID: 15544 Child1] exited
+2025-12-28 19:05:37.986 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:37.991 [PID: 16060 Child2] started
+2025-12-28 19:05:37.991 [PID: 16060 Child2] Multiplied counter by 2. New value: 1274
+2025-12-28 19:05:38.813 [PID: 4392 Master] Counter = 1282
+2025-12-28 19:05:39.833 [PID: 4392 Master] Counter = 1292
+2025-12-28 19:05:40.040 [PID: 16060 Child2] Divided counter by 2. Restored value: 647
+2025-12-28 19:05:40.041 [PID: 16060 Child2] exited
+2025-12-28 19:05:40.845 [PID: 4392 Master] Counter = 654
+2025-12-28 19:05:40.995 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:41.000 [PID: 3180 Child1] started
+2025-12-28 19:05:41.001 [PID: 3180 Child1] Added 10 to counter. New value: 666
+2025-12-28 19:05:41.027 [PID: 3180 Child1] exited
+2025-12-28 19:05:41.102 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:41.107 [PID: 11504 Child2] started
+2025-12-28 19:05:41.108 [PID: 11504 Child2] Multiplied counter by 2. New value: 1334
+2025-12-28 19:05:41.850 [PID: 4392 Master] Counter = 1342
+2025-12-28 19:05:42.854 [PID: 4392 Master] Counter = 1351
+2025-12-28 19:05:43.112 [PID: 11504 Child2] Divided counter by 2. Restored value: 677
+2025-12-28 19:05:43.113 [PID: 11504 Child2] exited
+2025-12-28 19:05:43.863 [PID: 4392 Master] Counter = 684
+2025-12-28 19:05:44.109 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:44.113 [PID: 12056 Child1] started
+2025-12-28 19:05:44.114 [PID: 12056 Child1] Added 10 to counter. New value: 696
+2025-12-28 19:05:44.115 [PID: 12056 Child1] exited
+2025-12-28 19:05:44.212 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:44.216 [PID: 20572 Child2] started
+2025-12-28 19:05:44.217 [PID: 20572 Child2] Multiplied counter by 2. New value: 1394
+2025-12-28 19:05:44.866 [PID: 4392 Master] Counter = 1402
+2025-12-28 19:05:45.871 [PID: 4392 Master] Counter = 1411
+2025-12-28 19:05:46.229 [PID: 20572 Child2] Divided counter by 2. Restored value: 707
+2025-12-28 19:05:46.230 [PID: 20572 Child2] exited
+2025-12-28 19:05:46.879 [PID: 4392 Master] Counter = 713
+2025-12-28 19:05:47.223 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:47.227 [PID: 1460 Child1] started
+2025-12-28 19:05:47.228 [PID: 1460 Child1] Added 10 to counter. New value: 727
+2025-12-28 19:05:47.229 [PID: 1460 Child1] exited
+2025-12-28 19:05:47.331 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:47.335 [PID: 14368 Child2] started
+2025-12-28 19:05:47.336 [PID: 14368 Child2] Multiplied counter by 2. New value: 1456
+2025-12-28 19:05:47.884 [PID: 4392 Master] Counter = 1461
+2025-12-28 19:05:48.889 [PID: 4392 Master] Counter = 1471
+2025-12-28 19:05:49.348 [PID: 14368 Child2] Divided counter by 2. Restored value: 737
+2025-12-28 19:05:49.359 [PID: 14368 Child2] exited
+2025-12-28 19:05:49.896 [PID: 4392 Master] Counter = 743
+2025-12-28 19:05:50.335 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:50.340 [PID: 14196 Child1] started
+2025-12-28 19:05:50.341 [PID: 14196 Child1] Added 10 to counter. New value: 757
+2025-12-28 19:05:50.367 [PID: 14196 Child1] exited
+2025-12-28 19:05:50.446 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:50.450 [PID: 17788 Child2] started
+2025-12-28 19:05:50.451 [PID: 17788 Child2] Multiplied counter by 2. New value: 1516
+2025-12-28 19:05:50.910 [PID: 4392 Master] Counter = 1520
+2025-12-28 19:05:51.927 [PID: 4392 Master] Counter = 1530
+2025-12-28 19:05:52.457 [PID: 17788 Child2] Divided counter by 2. Restored value: 767
+2025-12-28 19:05:52.458 [PID: 17788 Child2] exited
+2025-12-28 19:05:52.940 [PID: 4392 Master] Counter = 773
+2025-12-28 19:05:53.468 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:53.473 [PID: 11364 Child1] started
+2025-12-28 19:05:53.474 [PID: 11364 Child1] Added 10 to counter. New value: 787
+2025-12-28 19:05:53.504 [PID: 11364 Child1] exited
+2025-12-28 19:05:53.573 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:53.578 [PID: 9332 Child2] started
+2025-12-28 19:05:53.579 [PID: 9332 Child2] Multiplied counter by 2. New value: 1578
+2025-12-28 19:05:53.952 [PID: 4392 Master] Counter = 1581
+2025-12-28 19:05:54.955 [PID: 4392 Master] Counter = 1590
+2025-12-28 19:05:55.581 [PID: 9332 Child2] Divided counter by 2. Restored value: 798
+2025-12-28 19:05:55.583 [PID: 9332 Child2] exited
+2025-12-28 19:05:55.959 [PID: 4392 Master] Counter = 802
+2025-12-28 19:05:56.589 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:56.594 [PID: 2744 Child1] started
+2025-12-28 19:05:56.595 [PID: 2744 Child1] Added 10 to counter. New value: 818
+2025-12-28 19:05:56.623 [PID: 2744 Child1] exited
+2025-12-28 19:05:56.697 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:56.701 [PID: 8652 Child2] started
+2025-12-28 19:05:56.702 [PID: 8652 Child2] Multiplied counter by 2. New value: 1640
+2025-12-28 19:05:56.961 [PID: 4392 Master] Counter = 1643
+2025-12-28 19:05:57.975 [PID: 4392 Master] Counter = 1652
+2025-12-28 19:05:58.715 [PID: 8652 Child2] Divided counter by 2. Restored value: 829
+2025-12-28 19:05:58.717 [PID: 8652 Child2] exited
+2025-12-28 19:05:58.979 [PID: 4392 Master] Counter = 832
+2025-12-28 19:05:59.708 [PID: 4392 Master] Launched Child1
+2025-12-28 19:05:59.713 [PID: 18360 Child1] started
+2025-12-28 19:05:59.714 [PID: 18360 Child1] Added 10 to counter. New value: 849
+2025-12-28 19:05:59.715 [PID: 18360 Child1] exited
+2025-12-28 19:05:59.817 [PID: 4392 Master] Launched Child2
+2025-12-28 19:05:59.821 [PID: 16472 Child2] started
+2025-12-28 19:05:59.822 [PID: 16472 Child2] Multiplied counter by 2. New value: 1702
+2025-12-28 19:05:59.985 [PID: 4392 Master] Counter = 1703
+2025-12-28 19:06:01.001 [PID: 4392 Master] Counter = 1714
+2025-12-28 19:06:01.829 [PID: 16472 Child2] Divided counter by 2. Restored value: 860
+2025-12-28 19:06:01.830 [PID: 16472 Child2] exited
+2025-12-28 19:06:02.003 [PID: 4392 Master] Counter = 862
+2025-12-28 19:06:02.820 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:02.824 [PID: 11036 Child1] started
+2025-12-28 19:06:02.825 [PID: 11036 Child1] Added 10 to counter. New value: 879
+2025-12-28 19:06:02.837 [PID: 11036 Child1] exited
+2025-12-28 19:06:02.925 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:02.931 [PID: 13308 Child2] started
+2025-12-28 19:06:02.932 [PID: 13308 Child2] Multiplied counter by 2. New value: 1762
+2025-12-28 19:06:03.019 [PID: 4392 Master] Counter = 1762
+2025-12-28 19:06:04.021 [PID: 4392 Master] Counter = 1772
+2025-12-28 19:06:04.945 [PID: 13308 Child2] Divided counter by 2. Restored value: 890
+2025-12-28 19:06:04.947 [PID: 13308 Child2] exited
+2025-12-28 19:06:05.023 [PID: 4392 Master] Counter = 892
+2025-12-28 19:06:05.940 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:05.945 [PID: 6856 Child1] started
+2025-12-28 19:06:05.946 [PID: 6856 Child1] Added 10 to counter. New value: 909
+2025-12-28 19:06:05.982 [PID: 6856 Child1] exited
+2025-12-28 19:06:06.031 [PID: 4392 Master] Counter = 911
+2025-12-28 19:06:06.053 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:06.058 [PID: 15528 Child2] started
+2025-12-28 19:06:06.059 [PID: 15528 Child2] Multiplied counter by 2. New value: 1822
+2025-12-28 19:06:07.034 [PID: 4392 Master] Counter = 1831
+2025-12-28 19:06:08.044 [PID: 4392 Master] Counter = 1841
+2025-12-28 19:06:08.085 [PID: 15528 Child2] Divided counter by 2. Restored value: 920
+2025-12-28 19:06:08.086 [PID: 15528 Child2] exited
+2025-12-28 19:06:09.052 [PID: 4392 Master] Counter = 931
+2025-12-28 19:06:09.073 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:09.086 [PID: 9752 Child1] started
+2025-12-28 19:06:09.087 [PID: 9752 Child1] Added 10 to counter. New value: 941
+2025-12-28 19:06:09.088 [PID: 9752 Child1] exited
+2025-12-28 19:06:09.177 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:09.181 [PID: 14356 Child2] started
+2025-12-28 19:06:09.182 [PID: 14356 Child2] Multiplied counter by 2. New value: 1882
+2025-12-28 19:06:10.064 [PID: 4392 Master] Counter = 1891
+2025-12-28 19:06:11.066 [PID: 4392 Master] Counter = 1900
+2025-12-28 19:06:11.191 [PID: 14356 Child2] Divided counter by 2. Restored value: 950
+2025-12-28 19:06:11.192 [PID: 14356 Child2] exited
+2025-12-28 19:06:12.071 [PID: 4392 Master] Counter = 958
+2025-12-28 19:06:12.182 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:12.187 [PID: 6424 Child1] started
+2025-12-28 19:06:12.188 [PID: 6424 Child1] Added 10 to counter. New value: 971
+2025-12-28 19:06:12.189 [PID: 6424 Child1] exited
+2025-12-28 19:06:12.291 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:12.297 [PID: 9944 Child2] started
+2025-12-28 19:06:12.298 [PID: 9944 Child2] Multiplied counter by 2. New value: 1942
+2025-12-28 19:06:13.086 [PID: 4392 Master] Counter = 1949
+2025-12-28 19:06:14.089 [PID: 4392 Master] Counter = 1960
+2025-12-28 19:06:14.308 [PID: 9944 Child2] Divided counter by 2. Restored value: 980
+2025-12-28 19:06:14.310 [PID: 9944 Child2] exited
+2025-12-28 19:06:15.105 [PID: 4392 Master] Counter = 988
+2025-12-28 19:06:15.297 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:15.302 [PID: 11884 Child1] started
+2025-12-28 19:06:15.302 [PID: 11884 Child1] Added 10 to counter. New value: 999
+2025-12-28 19:06:15.303 [PID: 11884 Child1] exited
+2025-12-28 19:06:15.406 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:15.411 [PID: 7992 Child2] started
+2025-12-28 19:06:15.411 [PID: 7992 Child2] Multiplied counter by 2. New value: 2002
+2025-12-28 19:06:16.122 [PID: 4392 Master] Counter = 2009
+2025-12-28 19:06:17.131 [PID: 4392 Master] Counter = 2018
+2025-12-28 19:06:17.418 [PID: 7992 Child2] Divided counter by 2. Restored value: 1010
+2025-12-28 19:06:17.419 [PID: 7992 Child2] exited
+2025-12-28 19:06:18.141 [PID: 4392 Master] Counter = 1018
+2025-12-28 19:06:18.419 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:18.423 [PID: 18384 Child1] started
+2025-12-28 19:06:18.424 [PID: 18384 Child1] Added 10 to counter. New value: 1031
+2025-12-28 19:06:18.425 [PID: 18384 Child1] exited
+2025-12-28 19:06:18.532 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:18.536 [PID: 10796 Child2] started
+2025-12-28 19:06:18.537 [PID: 10796 Child2] Multiplied counter by 2. New value: 2062
+2025-12-28 19:06:19.147 [PID: 4392 Master] Counter = 2068
+2025-12-28 19:06:20.158 [PID: 4392 Master] Counter = 2078
+2025-12-28 19:06:20.546 [PID: 10796 Child2] Divided counter by 2. Restored value: 1042
+2025-12-28 19:06:20.548 [PID: 10796 Child2] exited
+2025-12-28 19:06:21.170 [PID: 4392 Master] Counter = 1048
+2025-12-28 19:06:21.542 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:21.547 [PID: 7516 Child1] started
+2025-12-28 19:06:21.548 [PID: 7516 Child1] Added 10 to counter. New value: 1061
+2025-12-28 19:06:21.549 [PID: 7516 Child1] exited
+2025-12-28 19:06:21.653 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:21.658 [PID: 6360 Child2] started
+2025-12-28 19:06:21.659 [PID: 6360 Child2] Multiplied counter by 2. New value: 2122
+2025-12-28 19:06:22.182 [PID: 4392 Master] Counter = 2128
+2025-12-28 19:06:23.193 [PID: 4392 Master] Counter = 2137
+2025-12-28 19:06:23.674 [PID: 6360 Child2] Divided counter by 2. Restored value: 1071
+2025-12-28 19:06:23.675 [PID: 6360 Child2] exited
+2025-12-28 19:06:24.202 [PID: 4392 Master] Counter = 1075
+2025-12-28 19:06:24.671 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:24.675 [PID: 12452 Child1] started
+2025-12-28 19:06:24.676 [PID: 12452 Child1] Added 10 to counter. New value: 1090
+2025-12-28 19:06:24.677 [PID: 12452 Child1] exited
+2025-12-28 19:06:24.779 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:24.783 [PID: 6476 Child2] started
+2025-12-28 19:06:24.784 [PID: 6476 Child2] Multiplied counter by 2. New value: 2180
+2025-12-28 19:06:25.210 [PID: 4392 Master] Counter = 2186
+2025-12-28 19:06:26.220 [PID: 4392 Master] Counter = 2195
+2025-12-28 19:06:26.796 [PID: 6476 Child2] Divided counter by 2. Restored value: 1100
+2025-12-28 19:06:26.797 [PID: 6476 Child2] exited
+2025-12-28 19:06:27.231 [PID: 4392 Master] Counter = 1103
+2025-12-28 19:06:27.794 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:27.798 [PID: 5380 Child1] started
+2025-12-28 19:06:27.799 [PID: 5380 Child1] Added 10 to counter. New value: 1119
+2025-12-28 19:06:27.799 [PID: 5380 Child1] exited
+2025-12-28 19:06:27.902 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:27.906 [PID: 21116 Child2] started
+2025-12-28 19:06:27.907 [PID: 21116 Child2] Multiplied counter by 2. New value: 2240
+2025-12-28 19:06:28.242 [PID: 4392 Master] Counter = 2243
+2025-12-28 19:06:29.250 [PID: 4392 Master] Counter = 2254
+2025-12-28 19:06:29.917 [PID: 21116 Child2] Divided counter by 2. Restored value: 1130
+2025-12-28 19:06:29.918 [PID: 21116 Child2] exited
+2025-12-28 19:06:30.256 [PID: 4392 Master] Counter = 1133
+2025-12-28 19:06:30.912 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:30.917 [PID: 11024 Child1] started
+2025-12-28 19:06:30.918 [PID: 11024 Child1] Added 10 to counter. New value: 1149
+2025-12-28 19:06:30.945 [PID: 11024 Child1] exited
+2025-12-28 19:06:31.019 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:31.023 [PID: 10952 Child2] started
+2025-12-28 19:06:31.024 [PID: 10952 Child2] Multiplied counter by 2. New value: 2300
+2025-12-28 19:06:31.263 [PID: 4392 Master] Counter = 2302
+2025-12-28 19:06:32.272 [PID: 4392 Master] Counter = 2312
+2025-12-28 19:06:33.036 [PID: 10952 Child2] Divided counter by 2. Restored value: 1160
+2025-12-28 19:06:33.037 [PID: 10952 Child2] exited
+2025-12-28 19:06:33.282 [PID: 4392 Master] Counter = 1163
+2025-12-28 19:06:34.032 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:34.037 [PID: 15124 Child1] started
+2025-12-28 19:06:34.038 [PID: 15124 Child1] Added 10 to counter. New value: 1179
+2025-12-28 19:06:34.038 [PID: 15124 Child1] exited
+2025-12-28 19:06:34.140 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:34.144 [PID: 19384 Child2] started
+2025-12-28 19:06:34.145 [PID: 19384 Child2] Multiplied counter by 2. New value: 2360
+2025-12-28 19:06:34.293 [PID: 4392 Master] Counter = 2362
+2025-12-28 19:06:35.303 [PID: 4392 Master] Counter = 2371
+2025-12-28 19:06:36.162 [PID: 19384 Child2] Divided counter by 2. Restored value: 1190
+2025-12-28 19:06:36.163 [PID: 19384 Child2] exited
+2025-12-28 19:06:36.319 [PID: 4392 Master] Counter = 1191
+2025-12-28 19:06:37.156 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:37.160 [PID: 12284 Child1] started
+2025-12-28 19:06:37.161 [PID: 12284 Child1] Added 10 to counter. New value: 1209
+2025-12-28 19:06:37.163 [PID: 12284 Child1] exited
+2025-12-28 19:06:37.268 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:37.273 [PID: 21180 Child2] started
+2025-12-28 19:06:37.274 [PID: 21180 Child2] Multiplied counter by 2. New value: 2420
+2025-12-28 19:06:37.321 [PID: 4392 Master] Counter = 2422
+2025-12-28 19:06:38.332 [PID: 4392 Master] Counter = 2431
+2025-12-28 19:06:39.285 [PID: 21180 Child2] Divided counter by 2. Restored value: 1220
+2025-12-28 19:06:39.286 [PID: 21180 Child2] exited
+2025-12-28 19:06:39.347 [PID: 4392 Master] Counter = 1220
+2025-12-28 19:06:40.284 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:40.288 [PID: 19272 Child1] started
+2025-12-28 19:06:40.289 [PID: 19272 Child1] Added 10 to counter. New value: 1239
+2025-12-28 19:06:40.320 [PID: 19272 Child1] exited
+2025-12-28 19:06:40.361 [PID: 4392 Master] Counter = 1240
+2025-12-28 19:06:40.393 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:40.398 [PID: 20948 Child2] started
+2025-12-28 19:06:40.399 [PID: 20948 Child2] Multiplied counter by 2. New value: 2480
+2025-12-28 19:06:41.378 [PID: 4392 Master] Counter = 2491
+2025-12-28 19:06:42.099 [PID: 2272] User set counter to 0
+2025-12-28 19:06:42.380 [PID: 4392 Master] Counter = 3
+2025-12-28 19:06:42.417 [PID: 20948 Child2] Divided counter by 2. Restored value: 1
+2025-12-28 19:06:42.418 [PID: 20948 Child2] exited
+2025-12-28 19:06:43.382 [PID: 4392 Master] Counter = 10
+2025-12-28 19:06:43.400 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:43.418 [PID: 4356 Child1] started
+2025-12-28 19:06:43.419 [PID: 4356 Child1] Added 10 to counter. New value: 21
+2025-12-28 19:06:43.420 [PID: 4356 Child1] exited
+2025-12-28 19:06:43.509 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:43.514 [PID: 17932 Child2] started
+2025-12-28 19:06:43.515 [PID: 17932 Child2] Multiplied counter by 2. New value: 46
+2025-12-28 19:06:44.398 [PID: 4392 Master] Counter = 53
+2025-12-28 19:06:45.409 [PID: 4392 Master] Counter = 64
+2025-12-28 19:06:45.519 [PID: 17932 Child2] Divided counter by 2. Restored value: 32
+2025-12-28 19:06:45.520 [PID: 17932 Child2] exited
+2025-12-28 19:06:46.425 [PID: 4392 Master] Counter = 41
+2025-12-28 19:06:46.522 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:46.527 [PID: 372 Child1] started
+2025-12-28 19:06:46.527 [PID: 372 Child1] Added 10 to counter. New value: 51
+2025-12-28 19:06:46.528 [PID: 372 Child1] exited
+2025-12-28 19:06:46.630 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:46.634 [PID: 12664 Child2] started
+2025-12-28 19:06:46.635 [PID: 12664 Child2] Multiplied counter by 2. New value: 108
+2025-12-28 19:06:47.437 [PID: 4392 Master] Counter = 114
+2025-12-28 19:06:48.452 [PID: 4392 Master] Counter = 124
+2025-12-28 19:06:48.639 [PID: 12664 Child2] Divided counter by 2. Restored value: 63
+2025-12-28 19:06:48.640 [PID: 12664 Child2] exited
+2025-12-28 19:06:48.758 [PID: 19740] User set counter to 0
+2025-12-28 19:06:49.454 [PID: 4392 Master] Counter = 8
+2025-12-28 19:06:49.645 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:49.650 [PID: 19468 Child1] started
+2025-12-28 19:06:49.651 [PID: 19468 Child1] Added 10 to counter. New value: 18
+2025-12-28 19:06:49.678 [PID: 19468 Child1] exited
+2025-12-28 19:06:49.753 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:49.758 [PID: 5940 Child2] started
+2025-12-28 19:06:49.758 [PID: 5940 Child2] Multiplied counter by 2. New value: 42
+2025-12-28 19:06:50.457 [PID: 4392 Master] Counter = 48
+2025-12-28 19:06:51.473 [PID: 4392 Master] Counter = 57
+2025-12-28 19:06:51.771 [PID: 5940 Child2] Divided counter by 2. Restored value: 30
+2025-12-28 19:06:51.773 [PID: 5940 Child2] exited
+2025-12-28 19:06:52.475 [PID: 4392 Master] Counter = 37
+2025-12-28 19:06:52.757 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:52.762 [PID: 21188 Child1] started
+2025-12-28 19:06:52.763 [PID: 21188 Child1] Added 10 to counter. New value: 49
+2025-12-28 19:06:52.799 [PID: 21188 Child1] exited
+2025-12-28 19:06:52.864 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:52.869 [PID: 12848 Child2] started
+2025-12-28 19:06:52.870 [PID: 12848 Child2] Multiplied counter by 2. New value: 104
+2025-12-28 19:06:53.484 [PID: 4392 Master] Counter = 110
+2025-12-28 19:06:54.489 [PID: 4392 Master] Counter = 119
+2025-12-28 19:06:54.881 [PID: 12848 Child2] Divided counter by 2. Restored value: 61
+2025-12-28 19:06:54.882 [PID: 12848 Child2] exited
+2025-12-28 19:06:55.504 [PID: 4392 Master] Counter = 67
+2025-12-28 19:06:55.878 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:55.883 [PID: 21340 Child1] started
+2025-12-28 19:06:55.884 [PID: 21340 Child1] Added 10 to counter. New value: 80
+2025-12-28 19:06:55.884 [PID: 21340 Child1] exited
+2025-12-28 19:06:55.987 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:55.992 [PID: 12668 Child2] started
+2025-12-28 19:06:55.993 [PID: 12668 Child2] Multiplied counter by 2. New value: 166
+2025-12-28 19:06:56.514 [PID: 4392 Master] Counter = 170
+2025-12-28 19:06:57.528 [PID: 4392 Master] Counter = 179
+2025-12-28 19:06:57.995 [PID: 12668 Child2] Divided counter by 2. Restored value: 92
+2025-12-28 19:06:57.996 [PID: 12668 Child2] exited
+2025-12-28 19:06:58.542 [PID: 4392 Master] Counter = 98
+2025-12-28 19:06:58.996 [PID: 4392 Master] Launched Child1
+2025-12-28 19:06:59.001 [PID: 13472 Child1] started
+2025-12-28 19:06:59.002 [PID: 13472 Child1] Added 10 to counter. New value: 111
+2025-12-28 19:06:59.028 [PID: 13472 Child1] exited
+2025-12-28 19:06:59.104 [PID: 4392 Master] Launched Child2
+2025-12-28 19:06:59.109 [PID: 15056 Child2] started
+2025-12-28 19:06:59.110 [PID: 15056 Child2] Multiplied counter by 2. New value: 228
+2025-12-28 19:06:59.555 [PID: 4392 Master] Counter = 231
+2025-12-28 19:07:00.557 [PID: 4392 Master] Counter = 240
+2025-12-28 19:07:01.121 [PID: 15056 Child2] Divided counter by 2. Restored value: 123
+2025-12-28 19:07:01.121 [PID: 15056 Child2] exited
+2025-12-28 19:07:01.563 [PID: 4392 Master] Counter = 127
+2025-12-28 19:07:02.121 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:02.126 [PID: 4308 Child1] started
+2025-12-28 19:07:02.127 [PID: 4308 Child1] Added 10 to counter. New value: 143
+2025-12-28 19:07:02.157 [PID: 4308 Child1] exited
+2025-12-28 19:07:02.249 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:02.254 [PID: 14076 Child2] started
+2025-12-28 19:07:02.255 [PID: 14076 Child2] Multiplied counter by 2. New value: 290
+2025-12-28 19:07:02.574 [PID: 4392 Master] Counter = 293
+2025-12-28 19:07:03.581 [PID: 4392 Master] Counter = 302
+2025-12-28 19:07:04.266 [PID: 14076 Child2] Divided counter by 2. Restored value: 154
+2025-12-28 19:07:04.267 [PID: 14076 Child2] exited
+2025-12-28 19:07:04.589 [PID: 4392 Master] Counter = 158
+2025-12-28 19:07:05.270 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:05.275 [PID: 6448 Child1] started
+2025-12-28 19:07:05.276 [PID: 6448 Child1] Added 10 to counter. New value: 174
+2025-12-28 19:07:05.303 [PID: 6448 Child1] exited
+2025-12-28 19:07:05.378 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:05.383 [PID: 12204 Child2] started
+2025-12-28 19:07:05.384 [PID: 12204 Child2] Multiplied counter by 2. New value: 352
+2025-12-28 19:07:05.604 [PID: 4392 Master] Counter = 353
+2025-12-28 19:07:06.617 [PID: 4392 Master] Counter = 364
+2025-12-28 19:07:07.395 [PID: 12204 Child2] Divided counter by 2. Restored value: 185
+2025-12-28 19:07:07.396 [PID: 12204 Child2] exited
+2025-12-28 19:07:07.623 [PID: 4392 Master] Counter = 187
+2025-12-28 19:07:08.382 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:08.386 [PID: 19860 Child1] started
+2025-12-28 19:07:08.387 [PID: 19860 Child1] Added 10 to counter. New value: 204
+2025-12-28 19:07:08.412 [PID: 19860 Child1] exited
+2025-12-28 19:07:08.492 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:08.497 [PID: 9468 Child2] started
+2025-12-28 19:07:08.498 [PID: 9468 Child2] Multiplied counter by 2. New value: 412
+2025-12-28 19:07:08.640 [PID: 4392 Master] Counter = 413
+2025-12-28 19:07:09.643 [PID: 4392 Master] Counter = 422
+2025-12-28 19:07:10.505 [PID: 9468 Child2] Divided counter by 2. Restored value: 215
+2025-12-28 19:07:10.506 [PID: 9468 Child2] exited
+2025-12-28 19:07:10.645 [PID: 4392 Master] Counter = 218
+2025-12-28 19:07:11.509 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:11.514 [PID: 6132 Child1] started
+2025-12-28 19:07:11.515 [PID: 6132 Child1] Added 10 to counter. New value: 235
+2025-12-28 19:07:11.541 [PID: 6132 Child1] exited
+2025-12-28 19:07:11.618 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:11.623 [PID: 1160 Child2] started
+2025-12-28 19:07:11.624 [PID: 1160 Child2] Multiplied counter by 2. New value: 474
+2025-12-28 19:07:11.661 [PID: 4392 Master] Counter = 474
+2025-12-28 19:07:12.665 [PID: 4392 Master] Counter = 483
+2025-12-28 19:07:13.642 [PID: 1160 Child2] Divided counter by 2. Restored value: 247
+2025-12-28 19:07:13.643 [PID: 1160 Child2] exited
+2025-12-28 19:07:13.678 [PID: 4392 Master] Counter = 247
+2025-12-28 19:07:14.626 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:14.630 [PID: 15672 Child1] started
+2025-12-28 19:07:14.631 [PID: 15672 Child1] Added 10 to counter. New value: 266
+2025-12-28 19:07:14.660 [PID: 15672 Child1] exited
+2025-12-28 19:07:14.692 [PID: 4392 Master] Counter = 268
+2025-12-28 19:07:14.737 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:14.741 [PID: 10556 Child2] started
+2025-12-28 19:07:14.742 [PID: 10556 Child2] Multiplied counter by 2. New value: 536
+2025-12-28 19:07:15.695 [PID: 4392 Master] Counter = 545
+2025-12-28 19:07:16.712 [PID: 4392 Master] Counter = 554
+2025-12-28 19:07:16.758 [PID: 10556 Child2] Divided counter by 2. Restored value: 277
+2025-12-28 19:07:16.759 [PID: 10556 Child2] exited
+2025-12-28 19:07:17.713 [PID: 4392 Master] Counter = 286
+2025-12-28 19:07:17.760 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:17.764 [PID: 4780 Child1] started
+2025-12-28 19:07:17.765 [PID: 4780 Child1] Added 10 to counter. New value: 298
+2025-12-28 19:07:17.766 [PID: 4780 Child1] exited
+2025-12-28 19:07:17.872 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:17.877 [PID: 7916 Child2] started
+2025-12-28 19:07:17.878 [PID: 7916 Child2] Multiplied counter by 2. New value: 596
+2025-12-28 19:07:18.733 [PID: 4392 Master] Counter = 605
+2025-12-28 19:07:19.743 [PID: 4392 Master] Counter = 614
+2025-12-28 19:07:19.884 [PID: 7916 Child2] Divided counter by 2. Restored value: 307
+2025-12-28 19:07:19.885 [PID: 7916 Child2] exited
+2025-12-28 19:07:20.746 [PID: 4392 Master] Counter = 315
+2025-12-28 19:07:20.888 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:20.893 [PID: 17492 Child1] started
+2025-12-28 19:07:20.894 [PID: 17492 Child1] Added 10 to counter. New value: 328
+2025-12-28 19:07:20.895 [PID: 17492 Child1] exited
+2025-12-28 19:07:20.998 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:21.002 [PID: 6960 Child2] started
+2025-12-28 19:07:21.003 [PID: 6960 Child2] Multiplied counter by 2. New value: 656
+2025-12-28 19:07:21.760 [PID: 4392 Master] Counter = 663
+2025-12-28 19:07:22.779 [PID: 4392 Master] Counter = 674
+2025-12-28 19:07:23.049 [PID: 6960 Child2] Divided counter by 2. Restored value: 339
+2025-12-28 19:07:23.051 [PID: 6960 Child2] exited
+2025-12-28 19:07:23.791 [PID: 4392 Master] Counter = 345
+2025-12-28 19:07:24.012 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:24.017 [PID: 16160 Child1] started
+2025-12-28 19:07:24.018 [PID: 16160 Child1] Added 10 to counter. New value: 358
+2025-12-28 19:07:24.051 [PID: 16160 Child1] exited
+2025-12-28 19:07:24.121 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:24.126 [PID: 1260 Child2] started
+2025-12-28 19:07:24.127 [PID: 1260 Child2] Multiplied counter by 2. New value: 716
+2025-12-28 19:07:24.806 [PID: 4392 Master] Counter = 722
+2025-12-28 19:07:25.817 [PID: 4392 Master] Counter = 732
+2025-12-28 19:07:26.136 [PID: 1260 Child2] Divided counter by 2. Restored value: 367
+2025-12-28 19:07:26.137 [PID: 1260 Child2] exited
+2025-12-28 19:07:26.835 [PID: 4392 Master] Counter = 375
+2025-12-28 19:07:27.131 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:27.134 [PID: 3104 Child1] started
+2025-12-28 19:07:27.135 [PID: 3104 Child1] Added 10 to counter. New value: 388
+2025-12-28 19:07:27.136 [PID: 3104 Child1] exited
+2025-12-28 19:07:27.243 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:27.248 [PID: 9416 Child2] started
+2025-12-28 19:07:27.249 [PID: 9416 Child2] Multiplied counter by 2. New value: 776
+2025-12-28 19:07:27.848 [PID: 4392 Master] Counter = 782
+2025-12-28 19:07:28.850 [PID: 4392 Master] Counter = 791
+2025-12-28 19:07:29.257 [PID: 9416 Child2] Divided counter by 2. Restored value: 397
+2025-12-28 19:07:29.258 [PID: 9416 Child2] exited
+2025-12-28 19:07:29.852 [PID: 4392 Master] Counter = 403
+2025-12-28 19:07:30.261 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:30.265 [PID: 16004 Child1] started
+2025-12-28 19:07:30.266 [PID: 16004 Child1] Added 10 to counter. New value: 418
+2025-12-28 19:07:30.291 [PID: 16004 Child1] exited
+2025-12-28 19:07:30.368 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:30.373 [PID: 14068 Child2] started
+2025-12-28 19:07:30.374 [PID: 14068 Child2] Multiplied counter by 2. New value: 836
+2025-12-28 19:07:30.866 [PID: 4392 Master] Counter = 842
+2025-12-28 19:07:31.868 [PID: 4392 Master] Counter = 851
+2025-12-28 19:07:32.386 [PID: 14068 Child2] Divided counter by 2. Restored value: 427
+2025-12-28 19:07:32.387 [PID: 14068 Child2] exited
+2025-12-28 19:07:32.870 [PID: 4392 Master] Counter = 432
+2025-12-28 19:07:33.381 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:33.385 [PID: 18220 Child1] started
+2025-12-28 19:07:33.386 [PID: 18220 Child1] Added 10 to counter. New value: 448
+2025-12-28 19:07:33.418 [PID: 18220 Child1] exited
+2025-12-28 19:07:33.497 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:33.501 [PID: 12716 Child2] started
+2025-12-28 19:07:33.502 [PID: 12716 Child2] Multiplied counter by 2. New value: 896
+2025-12-28 19:07:33.892 [PID: 4392 Master] Counter = 900
+2025-12-28 19:07:34.908 [PID: 4392 Master] Counter = 911
+2025-12-28 19:07:35.215 [PID: 19740] User set counter to 0
+2025-12-28 19:07:35.516 [PID: 12716 Child2] Divided counter by 2. Restored value: 1
+2025-12-28 19:07:35.517 [PID: 12716 Child2] exited
+2025-12-28 19:07:35.922 [PID: 4392 Master] Counter = 4
+2025-12-28 19:07:36.515 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:36.520 [PID: 18508 Child1] started
+2025-12-28 19:07:36.521 [PID: 18508 Child1] Added 10 to counter. New value: 20
+2025-12-28 19:07:36.545 [PID: 18508 Child1] exited
+2025-12-28 19:07:36.624 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:36.629 [PID: 21132 Child2] started
+2025-12-28 19:07:36.630 [PID: 21132 Child2] Multiplied counter by 2. New value: 40
+2025-12-28 19:07:36.933 [PID: 4392 Master] Counter = 43
+2025-12-28 19:07:37.952 [PID: 4392 Master] Counter = 53
+2025-12-28 19:07:38.649 [PID: 21132 Child2] Divided counter by 2. Restored value: 30
+2025-12-28 19:07:38.650 [PID: 21132 Child2] exited
+2025-12-28 19:07:38.963 [PID: 4392 Master] Counter = 33
+2025-12-28 19:07:39.635 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:39.639 [PID: 14696 Child1] started
+2025-12-28 19:07:39.640 [PID: 14696 Child1] Added 10 to counter. New value: 49
+2025-12-28 19:07:39.640 [PID: 14696 Child1] exited
+2025-12-28 19:07:39.747 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:39.751 [PID: 2516 Child2] started
+2025-12-28 19:07:39.752 [PID: 2516 Child2] Multiplied counter by 2. New value: 98
+2025-12-28 19:07:39.978 [PID: 4392 Master] Counter = 101
+2025-12-28 19:07:40.985 [PID: 4392 Master] Counter = 110
+2025-12-28 19:07:41.771 [PID: 2516 Child2] Divided counter by 2. Restored value: 59
+2025-12-28 19:07:41.772 [PID: 2516 Child2] exited
+2025-12-28 19:07:41.990 [PID: 4392 Master] Counter = 60
+2025-12-28 19:07:42.761 [PID: 4392 Master] Launched Child1
+2025-12-28 19:07:42.765 [PID: 17444 Child1] started
+2025-12-28 19:07:42.767 [PID: 17444 Child1] Added 10 to counter. New value: 78
+2025-12-28 19:07:42.767 [PID: 17444 Child1] exited
+2025-12-28 19:07:42.870 [PID: 4392 Master] Launched Child2
+2025-12-28 19:07:42.874 [PID: 9376 Child2] started
+2025-12-28 19:07:42.875 [PID: 9376 Child2] Multiplied counter by 2. New value: 158
+2025-12-28 19:07:43.005 [PID: 4392 Master] Counter = 160
+2025-12-28 19:07:44.010 [PID: 4392 Master] Counter = 169
+2025-12-28 19:07:44.883 [PID: 9376 Child2] Divided counter by 2. Restored value: 88
+2025-12-28 19:07:44.884 [PID: 9376 Child2] exited
+2025-12-28 19:07:45.881 [PID: 4392] Master shutting down
+2025-12-28 19:07:45.882 [PID: 4392] Application stopped

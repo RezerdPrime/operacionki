@@ -1,0 +1,5 @@
+# ninja log v7
+16	1304	7894665829926461	CMakeFiles/emulator.dir/emulator.cpp.obj	b07be82eede15950
+1304	1396	7894665842805192	emulator.exe	9da9092afdcf0468
+19	1544	7894665829966454	CMakeFiles/listener.dir/listener.cpp.obj	c754a8bbb7d29f4c
+1545	1640	7894665845212694	listener.exe	4b2a4feaa25c3bca
