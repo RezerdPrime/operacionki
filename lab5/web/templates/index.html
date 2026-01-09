@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мониторинг температуры</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #1e1f29;
+            --bg-secondary: #252836;
+            --bg-card: #2d3043;
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a7c2;
+            --border: #3a3f55;
+            --accent: #6a5acd; /* нежно-фиолетовый */
+            --accent-hover: #7a6add;
+            --success: #4caf50;
+            --chart-line: #8a84ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-weight: 600;
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+            background: linear-gradient(90deg, #a0a7ff, #6a5acd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-weight: 500;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: #c5c9e6;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .current-temp {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: white;
+            margin: 8px 0;
+        }
+
+        .last-update {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        #chart-container {
+            height: 320px;
+            position: relative;
+            margin-top: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: #b8bdde;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(106, 90, 205, 0.08);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .current-temp {
+                font-size: 2.2rem;
+            }
+            #chart-container {
+                height: 260px;
+            }
+            th, td {
+                padding: 10px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Мониторинг температуры</h1>
+
+    <div class="card">
+        <h2>Текущая температура</h2>
+        <div class="current-temp" id="current-temp">—</div>
+        <p class="last-update">Последнее обновление: <span id="last-update">—</span></p>
+    </div>
+
+    <div class="card">
+        <h2>График: последние 20 измерений</h2>
+        <div id="chart-container">
+            <canvas id="tempChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Почасовые средние (последние 30 дней)</h2>
+        <table>
+            <thead>
+                <tr><th>Время</th><th>Средняя температура (°C)</th></tr>
+            </thead>
+            <tbody id="hourly-table"></tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Суточные средние (текущий год)</h2>
+        <table>
+            <thead>
+                <tr><th>Дата</th><th>Средняя температура (°C)</th></tr>
+            </thead>
+            <tbody id="daily-table"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function formatDateFull(isoStr) {
+        const d = new Date(isoStr);
+        return d.toLocaleString('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        }).replace(',', ',');
+    }
+
+    async function loadCurrent() {
+        try {
+            const res = await fetch('/api/current');
+            const data = await res.json();
+            if (data.temperature !== undefined) {
+                document.getElementById('current-temp').textContent = data.temperature.toFixed(2);
+                document.getElementById('last-update').textContent = formatDateFull(data.timestamp);
+            }
+        } catch (e) {
+            console.error("Не удалось загрузить текущую температуру", e);
+        }
+    }
+
+        async function loadChart() {
+            try {
+                const res = await fetch('/api/main');
+                const data = await res.json();
+                const ctx = document.getElementById('tempChart').getContext('2d');
+
+                if (window.tempChart && typeof window.tempChart.destroy === 'function') {
+                    window.tempChart.destroy();
+                }
+
+                window.tempChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(d => new Date(d.time).toLocaleTimeString('ru-RU')),
+                        datasets: [{
+                            label: 'Температура (°C)',
+                            data: data.map(d => d.temp),
+                            borderColor: '#8a84ff',
+                            backgroundColor: 'rgba(138, 132, 255, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true,
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#c5c9e6',
+                                    font: { size: 12 }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: { color: 'rgba(106, 90, 205, 0.1)' },
+                                ticks: { color: '#a0a7c2' }
+                            },
+                            y: {
+                                grid: { color: 'rgba(106, 90, 205, 0.1)' },
+                                ticks: { color: '#a0a7c2' },
+                                title: {
+                                    display: true,
+                                    text: 'Температура (°C)',
+                                    color: '#b8bdde',
+                                    font: { size: 12 }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error("Ошибка загрузки графика", e);
+            }
+        }
+
+        async function loadTables() {
+            try {
+                const res = await fetch('/api/hourly');
+                const data = await res.json();
+                const tbody = document.getElementById('hourly-table');
+                tbody.innerHTML = data.map(row =>
+                    `<tr><td>${formatDate(row.hour)}</td><td>${row.avg.toFixed(2)}</td></tr>`
+                ).join('');
+            } catch (e) { console.error("Ошибка загрузки hourly", e); }
+
+            try {
+                const res = await fetch('/api/daily');
+                const data = await res.json();
+                const tbody = document.getElementById('daily-table');
+                tbody.innerHTML = data.map(row =>
+                    `<tr><td>${formatDate(row.date).split(',')[0]}</td><td>${row.avg.toFixed(2)}</td></tr>`
+                ).join('');
+            } catch (e) { console.error("Ошибка загрузки daily", e); }
+        }
+
+        async function refreshAll() {
+            await loadCurrent();
+            await loadChart();
+            await loadTables();
+        }
+
+        refreshAll();
+        setInterval(refreshAll, 5000);
+    </script>
+</body>
+</html>
