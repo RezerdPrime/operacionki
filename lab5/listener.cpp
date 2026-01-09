@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
     exec_sql(db, R"(
         CREATE TABLE IF NOT EXISTS main (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+            timestamp DATETIME DEFAULT (datetime('now', 'localtime')),
             temperature REAL NOT NULL
         );
     )");
